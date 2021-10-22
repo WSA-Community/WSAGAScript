@@ -18,13 +18,13 @@ cp -f -a $GAppsOutputFolder/priv-app/* $InstallDir/priv-app
 cp -f -a $GAppsOutputFolder/framework/* $InstallDir/framework
 
 echo "Applying root file ownership"
-find $InstallDir/app -exec chown root:root {} \;
-find $InstallDir/etc -exec chown root:root {} \;
-find $InstallDir/overlay -exec chown root:root {} \;
-find $InstallDir/priv-app -exec chown root:root {} \;
-find $InstallDir/framework -exec chown root:root {} \;
-find $InstallDir/lib -exec chown root:root {} \;
-find $InstallDir/lib64 -exec chown root:root {} \;
+find $InstallDir/app -exec chown root:root {} &>/dev/null \;
+find $InstallDir/etc -exec chown root:root {} &>/dev/null \;
+find $InstallDir/overlay -exec chown root:root {} &>/dev/null \;
+find $InstallDir/priv-app -exec chown root:root {} &>/dev/null \;
+find $InstallDir/framework -exec chown root:root {} &>/dev/null \;
+find $InstallDir/lib -exec chown root:root {} &>/dev/null \;
+find $InstallDir/lib64 -exec chown root:root {} &>/dev/null \;
 
 echo "Setting directory permissions"
 find $InstallDir/app -type d -exec chmod 755 {} \;
