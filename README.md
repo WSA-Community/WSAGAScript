@@ -3,9 +3,9 @@
 ## SIGN IN DOESN'T WORK CURRENTLY. 
 ### THIS IS FOR TESTING
 
-Download MSIXBUNDLE
+Download MSIXBUNDLE (use store rg-adguard to download the msixbundle, Package id: 9P3395VX91NR)
 
-INSTALL WSL2 (ubuntu/debian, amy other distro could work)
+INSTALL WSL2 (ubuntu/debian, any other distro could work)
 
 INSTALL unzip lzip 
 
