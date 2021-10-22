@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./VARIABLES.sh
+. ./VARIABLES.sh
 
 echo "Unmounting product.img"
 umount $MountPointProduct

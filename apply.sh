@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./VARIABLES.sh
+. ./VARIABLES.sh
 
 echo "Copying build.prop for each image"
 cp "$MiscRoot/prop/build_system_ext.prop" /mnt/system_ext/build.prop

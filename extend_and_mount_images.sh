@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./VARIABLES.sh
+. ./VARIABLES.sh
 
 echo "chk product.img"
 e2fsck -f $ImagesRoot/product.img
