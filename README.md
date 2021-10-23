@@ -2,6 +2,9 @@
 
 # This readme is being updated multiple times. I'm aware that's not clear, I'm going to resolve it ASAP.
 
+# As a temporary measure I made a tutorial
+[![How to install Google Apps (Play Store) on WSA (Windows Subsystem Android)](http://img.youtube.com/vi/rIt00xDp0tM/0.jpg)](http://www.youtube.com/watch?v=rIt00xDp0tM "How to install Google Apps (Play Store) on WSA (Windows Subsystem Android)")
+
 ## SIGN IN DOESN'T WORK CURRENTLY. 
 ### THIS IS FOR TESTING
 
