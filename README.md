@@ -82,12 +82,12 @@ nano VARIABLES.sh
 
 replace the root variable with the output of pwd up until and including the WSAGAScript folder
 
-### Run the scripts
-
 **Debian WSL users need to create an mtab symlink:**
 ```
 sudo ln -s /proc/self/mounts /etc/mtab
 ```
+
+### Run the scripts
 
 ```
 sudo ./extract_gapps_pico.sh
