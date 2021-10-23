@@ -24,7 +24,7 @@ sudo apt install unzip lzip
 ```
 
 ### Download gapps 
-Select Platform: x86_64, Android: 11 and Variant: Pico on [OpenGApps](https://opengapps.org/)
+Select Platform: x86_64 if Windows architecture is x64 otherwise choose ARM64, Android: 11 and Variant: Pico on [OpenGApps](https://opengapps.org/)
 
 ### Extract msixbundle
 Download 7zip or a similar archival program and open the recently downloaded msixbundle. Find the msix file inside the msixbundle relating to your architecture and extract that to a folder.
