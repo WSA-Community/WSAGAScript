@@ -6,12 +6,12 @@
 ### THIS IS FOR TESTING
 
 ### Download msixbundle (~1.2GB)
-Use https://store.rg-adguard.net/ to download the msixbundle with the settings ProductId: 9P3395VX91NR, Ring: SLOW
+Use this [link](https://store.rg-adguard.net/) to download the msixbundle with the settings ProductId: 9P3395VX91NR, Ring: SLOW
 
 ### Install WSL2 
 Ubuntu is used in this guide but any other distro will work for this 
 
-(all commands in this readme assume you are using the same terminal and are continuing from where the last command left off)
+(We are assuming that you are using the exact terminal, and you are also continuing this from where the last command left off)
 
 ### Install unzip lzip 
 For Ubuntu
@@ -21,7 +21,7 @@ sudo apt install unzip lzip
 ```
 
 ### Download gapps 
-Select Platform: x86_64, Android: 11 and Variant: Pico on https://opengapps.org/ 
+Select Platform: x86_64, Android: 11 and Variant: Pico on [OpenGApps](https://opengapps.org/)
 
 ### Extract msixbundle
 Download 7zip or a similar archival program and open the recently downloaded msixbundle. Find the msix file inside the msixbundle relating to your architecture and extract that to a folder.
