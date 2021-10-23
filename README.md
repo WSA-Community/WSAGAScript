@@ -45,7 +45,7 @@ paths in wsl follow the same as windows after /mnt/ its just the drive letter th
 ### Edit scripts
 Set executable permission for the scripts
 ```
-cd..
+cd ..
 sudo chmod +x extract_gapps_pico.sh
 sudo chmod +x extend_and_mount_images.sh
 sudo chmod +x apply.sh
@@ -64,6 +64,11 @@ replace the root variable with the output of pwd up until and including the WSAG
 
 
 ### Run the scripts
+**Debian WSL users need to create an mtab symlink:**
+```
+sudo ln -s /proc/self/mounts /etc/mtab
+```
+
 ```
 sudo ./extract_gapps_pico.sh
 sudo ./extend_and_mount_images.sh
