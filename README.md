@@ -1,5 +1,7 @@
 # IT'S **WIP**
 
+# This readme is being updated multiple times. I'm aware that's not clear, I'm going to resolve it ASAP.
+
 ## SIGN IN DOESN'T WORK CURRENTLY. 
 ### THIS IS FOR TESTING
 
