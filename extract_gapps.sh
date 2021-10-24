@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./VARIABLES.sh
+. ./VARIABLES
 
 rm -rf $GAppsOutputFolder
 rm -rf $GAppsTmpFolder

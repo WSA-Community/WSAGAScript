@@ -1,0 +1,16 @@
+# Modify your variables here to corretly reference your directory and subdir
+
+Root="$(dirname "$(realpath "$0")")"
+
+MiscRoot="$Root/misc"
+
+GAppsRoot="$Root/gapps"
+GAppsOutputFolder="$GAppsRoot/output"
+GAppsExtractFolder="$GAppsRoot/extract"
+GAppsTmpFolder="$GAppsRoot/tmp"
+
+ImagesRoot="$Root/images"
+MountPointSystem="/mnt/system"
+
+InstallPartition="$MountPointSystem"
+InstallDir="$InstallPartition/system"
