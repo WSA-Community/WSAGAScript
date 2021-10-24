@@ -1,8 +1,8 @@
 # IT'S **WIP**
 
-# This readme is being updated frequently. As I am aware that it might not be completely clear right now, I am going to resolve it ASAP.
+## This readme is being updated frequently. As I am aware that it might not be completely clear right now, I am going to resolve it ASAP
 
-# As a temporary measure, I have also made a tutorial and hosted that video on YouTube.
+## As a temporary measure, I have also made a tutorial and hosted that video on YouTube
 
 <p align="center">
 
@@ -26,9 +26,9 @@ Ubuntu is used in this guide, but any other distro will work for this just fine.
 
 For Ubuntu
 
-```
-sudo apt update
-sudo apt install unzip lzip
+```bash
+sudo apt-get update
+sudo apt-get install unzip lzip
 ```
 
 ### Download gapps
@@ -44,7 +44,7 @@ Delete the files appxblockmap, appxsignature and \[content_types\] along with th
 
 For Ubuntu
 
-```
+```bash
 git clone https://github.com/ADeltaX/WSAGAScript
 cd WSAGAScript/\#IMAGES
 mv /mnt/path-to-extracted-msix/*.img .
@@ -58,7 +58,7 @@ paths in wsl follow the same as windows after /mnt/ its just the drive letter th
 
 Set executable permission for the scripts
 
-```
+```bash
 cd ..
 sudo chmod +x extract_gapps_pico.sh
 sudo chmod +x extend_and_mount_images.sh
@@ -68,26 +68,27 @@ sudo chmod +x unmount_images.sh
 
 Change the root directory in VARIABLES.sh
 
-```
+```bash
 pwd
 ```
 
 (take note of the output)
 
-```
+```bash
 nano VARIABLES.sh
 ```
 
 replace the root variable with the output of pwd up until and including the WSAGAScript folder
 
 **Debian WSL users need to create an mtab symlink:**
-```
+
+```bash
 sudo ln -s /proc/self/mounts /etc/mtab
 ```
 
 ### Run the scripts
 
-```
+```bash
 sudo ./extract_gapps_pico.sh
 sudo ./extend_and_mount_images.sh
 sudo ./apply.sh
@@ -96,7 +97,7 @@ sudo ./unmount_images.sh
 
 ### Copy the edited images
 
-```
+```bash
 cd \#IMAGES
 cp *.img /mnt/path-to-extracted-msix/
 ```
@@ -109,11 +110,11 @@ cp *.img /mnt/path-to-extracted-msix/
 
 WSA will install with gapps
 
-# Root access
+## Root access
 
 You can get root access by replacing the kernel. (This step is no longer required to sign in gapps)
 
-## (ADB SHELL ROOT WITH su)
+### (ADB SHELL ROOT WITH su)
 
 Copy the kernel file from this repo and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running)
 
@@ -121,7 +122,7 @@ This will allow you to use use `su` inside the `adb shell`.
 
 Enter into the `adb shell` and run the following commands
 
-```
+```bash
 su
 setenforce 0
 ```
