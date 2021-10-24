@@ -1,21 +1,17 @@
 #!/bin/bash
 
-. ./VARIABLES.sh
+. ./VARIABLES
 
 echo "Copying build.prop for each image"
-cp "$MiscRoot/prop/build_system_ext.prop" /mnt/system_ext/build.prop
-cp "$MiscRoot/prop/build_system.prop" /mnt/system/build.prop
-cp "$MiscRoot/prop/build_system.prop" /mnt/system/system/build.prop
-cp "$MiscRoot/prop/build_product.prop" /mnt/product/build.prop
-cp "$MiscRoot/prop/build_vendor.prop" /mnt/vendor/build.prop
-cp "$MiscRoot/prop/build_vendor_odm.prop" /mnt/vendor/odm/etc/vendor.prop
+cp "$MiscRoot/prop/build_system_ext.prop" "$MountPointSystem/system_ext/build.prop"
+cp "$MiscRoot/prop/build_system.prop" "$MountPointSystem/build.prop"
+cp "$MiscRoot/prop/build_system.prop" "$MountPointSystem/system/build.prop"
+cp "$MiscRoot/prop/build_product.prop" "$MountPointSystem/product/build.prop"
+cp "$MiscRoot/prop/build_vendor.prop" "$MountPointSystem/vendor/build.prop"
+cp "$MiscRoot/prop/build_vendor_odm.prop" "$MountPointSystem/vendor/odm/etc/vendor.prop"
 
 echo "Copying GApps files to system..."
-cp -f -a $GAppsOutputFolder/app/* $InstallDir/app
-cp -f -a $GAppsOutputFolder/etc/* $InstallDir/etc
-cp -f -a $GAppsOutputFolder/overlay/* $InstallDir/overlay
-cp -f -a $GAppsOutputFolder/priv-app/* $InstallDir/priv-app
-cp -f -a $GAppsOutputFolder/framework/* $InstallDir/framework
+cp -Ra $GAppsOutputFolder/* $InstallDir/
 
 echo "Applying root file ownership"
 find $InstallDir/app -exec chown root:root {} &>/dev/null \;

@@ -33,7 +33,7 @@ sudo apt install unzip lzip
 
 ### Download gapps
 
-Select Platform: x86_64 if Windows architecture is x64, otherwise choose ARM64, Android: 11 and Variant: Pico on [OpenGApps](https://opengapps.org/)
+Select Platform: x86_64 if Windows architecture is x64, otherwise choose ARM64, Android: 11 and Variant: Pico (or Nano) on [OpenGApps](https://opengapps.org/)
 
 ### Extract msixbundle
 
@@ -46,39 +46,16 @@ For Ubuntu
 
 ```
 git clone https://github.com/ADeltaX/WSAGAScript
-cd WSAGAScript/\#IMAGES
-mv /mnt/path-to-extracted-msix/*.img .
-cd ../\#GAPPS
-cp /mnt/path-to-downloaded-gapps/*.zip .
+cd WSAGAScript/
+mv /mnt/path-to-extracted-msix/*.img images/
+cp /mnt/path-to-downloaded-gapps/*.zip gapps/
 ```
 
 paths in wsl follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/users would be the c:\users folder
 
 ### Edit scripts
 
-Set executable permission for the scripts
-
-```
-cd ..
-sudo chmod +x extract_gapps_pico.sh
-sudo chmod +x extend_and_mount_images.sh
-sudo chmod +x apply.sh
-sudo chmod +x unmount_images.sh
-```
-
-Change the root directory in VARIABLES.sh
-
-```
-pwd
-```
-
-(take note of the output)
-
-```
-nano VARIABLES.sh
-```
-
-replace the root variable with the output of pwd up until and including the WSAGAScript folder
+If needed, you can change the variables used in the scripts in the `VARIABLES` file. The defaults should work fine.
 
 **Debian WSL users need to create an mtab symlink:**
 ```
@@ -88,7 +65,7 @@ sudo ln -s /proc/self/mounts /etc/mtab
 ### Run the scripts
 
 ```
-sudo ./extract_gapps_pico.sh
+sudo ./extract_gapps.sh
 sudo ./extend_and_mount_images.sh
 sudo ./apply.sh
 sudo ./unmount_images.sh
@@ -97,8 +74,7 @@ sudo ./unmount_images.sh
 ### Copy the edited images
 
 ```
-cd \#IMAGES
-cp *.img /mnt/path-to-extracted-msix/
+cp images/*.img /mnt/path-to-extracted-msix/
 ```
 
 ### Register the edited WSA
