@@ -3,12 +3,12 @@
 . ./VARIABLES.sh
 
 echo "Copying build.prop for each image"
-cp "$MiscRoot/prop/build_system_ext.prop" /mnt/system_ext/build.prop
-cp "$MiscRoot/prop/build_system.prop" /mnt/system/build.prop
-cp "$MiscRoot/prop/build_system.prop" /mnt/system/system/build.prop
-cp "$MiscRoot/prop/build_product.prop" /mnt/product/build.prop
-cp "$MiscRoot/prop/build_vendor.prop" /mnt/vendor/build.prop
-cp "$MiscRoot/prop/build_vendor_odm.prop" /mnt/vendor/odm/etc/vendor.prop
+cp "$PropRoot/build_system_ext.prop" /mnt/system_ext/build.prop
+cp "$PropRoot/build_system.prop" /mnt/system/build.prop
+cp "$PropRoot/build_system.prop" /mnt/system/system/build.prop
+cp "$PropRoot/build_product.prop" /mnt/product/build.prop
+cp "$PropRoot/build_vendor.prop" /mnt/vendor/build.prop
+cp "$PropRoot/build_vendor_odm.prop" /mnt/vendor/odm/etc/vendor.prop
 
 echo "Copying GApps files to system..."
 cp -f -a $GAppsOutputFolder/app/* $InstallDir/app
