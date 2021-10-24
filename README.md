@@ -10,6 +10,8 @@
 
 </p>
 
+Powershell script for automatically doing most of the works: [WSAGApp_PowershellScript](https://github.com/RikaKagurasaka/WSAGApp_PowershellScript). Still need testing.
+
 ## SIGN-IN ISN'T WORKING CURRENTLY. (UNLESS YOU ARE USING THE FIX GIVEN AT THE BOTTOM)
 
 ### THIS IS FOR TESTING
