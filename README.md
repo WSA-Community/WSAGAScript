@@ -10,8 +10,6 @@
 
 </p>
 
-## SIGN-IN ISN'T WORKING CURRENTLY. (UNLESS YOU ARE USING THE FIX GIVEN AT THE BOTTOM)
-
 ### THIS IS FOR TESTING
 
 ### Download msixbundle (~1.2GB)
@@ -30,7 +28,7 @@ For Ubuntu
 
 ```bash
 sudo apt-get update
-sudo apt install unzip lzip
+sudo apt-get install unzip lzip
 ```
 
 ### Download gapps
@@ -112,15 +110,17 @@ cp *.img /mnt/path-to-extracted-msix/
 
 WSA will install with gapps
 
-## WORKAROUND FOR SIGN-IN ISSUE
+## Root access
+
+You can get root access by replacing the kernel. (This step is no longer required to sign in gapps)
 
 ### (ADB SHELL ROOT WITH su)
 
 Copy the kernel file from this repo and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running)
 
-This will allow you to use use `su` inside the adb shell.
+This will allow you to use use `su` inside the `adb shell`.
 
-Enter into the adb shell and run the following commands
+Enter into the `adb shell` and run the following commands
 
 ```bash
 su
