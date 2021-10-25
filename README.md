@@ -80,12 +80,6 @@ nano VARIABLES.sh
 
 replace the root variable with the output of pwd up until and including the WSAGAScript folder
 
-**Debian WSL users need to create an mtab symlink:**
-
-```bash
-sudo ln -s /proc/self/mounts /etc/mtab
-```
-
 ### Run the scripts
 
 ```bash

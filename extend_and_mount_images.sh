@@ -2,6 +2,12 @@
 
 . ./VARIABLES.sh
 
+if [[ ! /proc/self/mounts -ef /etc/mtab ]]; then
+	printf "/etc/mtab doesn't exist or is invalid\n"
+	printf 'creating valid /etc/mtab\n'
+	ln -sf /proc/self/mounts /etc/mtab
+fi
+
 echo "chk product.img"
 e2fsck -f $ImagesRoot/product.img
 
