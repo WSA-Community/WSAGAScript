@@ -10,6 +10,9 @@ cp "$PropRoot/build_product.prop" /mnt/product/build.prop
 cp "$PropRoot/build_vendor.prop" /mnt/vendor/build.prop
 cp "$PropRoot/build_vendor_odm.prop" /mnt/vendor/odm/etc/vendor.prop
 
+printf 'removing duplicate apps from system\n'
+rm -Rf $InstallDir/priv-app/PackageInstaller/
+
 echo "Copying GApps files to system..."
 cp -f -a $GAppsOutputFolder/app/* $InstallDir/app
 cp -f -a $GAppsOutputFolder/etc/* $InstallDir/etc
