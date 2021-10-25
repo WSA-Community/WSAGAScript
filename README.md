@@ -66,21 +66,9 @@ sudo chmod +x apply.sh
 sudo chmod +x unmount_images.sh
 ```
 
-Change the root directory in VARIABLES.sh
-
-```bash
-pwd
-```
-
-(take note of the output)
-
-```bash
-nano VARIABLES.sh
-```
-
-replace the root variable with the output of pwd up until and including the WSAGAScript folder
-
 ### Run the scripts
+
+make sure you're in the same directory as the scripts before running, then run:
 
 ```bash
 sudo ./extract_gapps_pico.sh
