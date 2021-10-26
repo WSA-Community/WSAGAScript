@@ -58,17 +58,23 @@ OpenGappsName=`basename "$OpenGappsPath"`
 echo "Extracting ${Architecture} WsaPackage from $MsixBundleName"
 unzip -joq "$MsixBundlePath" "WsaPackage_*_${Architecture}_*" -d "$UNPACK_DIR" & loading_spinner
 
-# set WsaPackage var
+# set extracted WsaPackage var
 WsaPackagePath=$(find "$UNPACK_DIR"/WsaPackage_*_${Architecture}_*)
 WsaPackageName=`basename "$WsaPackagePath"`
 WsaPackageUnpackDir=$UNPACK_DIR/${WsaPackageName%.*}
-WsaPackageExclude="AppxMetadata [Content_Types].xml AppxBlockMap.xml AppxSignature.p7x"
+WsaPackageExclude=".AppxMetadata .[Content_Types].xml .AppxBlockMap.xml .AppxSignature.p7x"
 
 echo "Extracting $WsaPackageName"
-unzip -oq "$WsaPackagePath" -x $WsaPackageExclude -d "$WsaPackageUnpackDir" & loading_spinner
+unzip -oq "$WsaPackagePath" -d "$WsaPackageUnpackDir" & loading_spinner
 
 echo "Remove $MsixBundleName"
 rm -rf "$UNPACK_DIR/$WsaPackageName"
+
+echo "Remove Metadata and other in $WsaPackageName"
+rm -rf "$WsaPackageUnpackDir/AppxMetadata"
+rm -rf "$WsaPackageUnpackDir/[Content_Types].xml"
+rm -rf "$WsaPackageUnpackDir/AppxBlockMap.xml"
+rm -rf "$WsaPackageUnpackDir/AppxSignature.p7x"
 
 echo "Copy $OpenGappsName"
 cp "$OpenGappsPath" "$GAppsRoot"
@@ -76,7 +82,7 @@ cp "$OpenGappsPath" "$GAppsRoot"
 echo "Moving .img file to $ImagesRoot"
 mv "$WsaPackageUnpackDir"/*.img "$ImagesRoot"
 
-# run other script
+# run script
 echo "----------------"
 . ./extract_gapps_pico.sh
 echo "----------------"
@@ -89,4 +95,4 @@ echo "----------------"
 
 echo "Moving .img file Back to $WsaPackageUnpackDir"
 mv "$ImagesRoot"/*img "$WsaPackageUnpackDir"
-# if done, back to cmd
+# if all done, the terminal should back to cmd
