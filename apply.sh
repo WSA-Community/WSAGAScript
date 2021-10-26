@@ -85,7 +85,7 @@ find $InstallDir/etc/preferred-apps -type f -exec chcon --reference=$InstallDir/
 find $InstallDir/etc/sysconfig -type f -exec chcon --reference=$InstallDir/etc/fs_config_dirs {} \;
 find $MountPointProduct/app  -type f -exec chcon --reference=$MountPointProduct/app/ModuleMetadata/ModuleMetadata.apk {} \;
 find $MountPointProduct/overlay -type f -exec chcon --reference=$MountPointVendor/overlay/framework-res__auto_generated_rro_vendor.apk {} \;
-find $MountPointProduct/priv-app -type f -exec chcon --reference=$MountPointProduct/priv-app/amazon-adm-release/amazon-adm-release.apk
+find $MountPointProduct/priv-app -type f -exec chcon --reference=$MountPointProduct/priv-app/amazon-adm-release/amazon-adm-release.apk {} \;
 
 echo "Applying SELinux policy"
 # Sed will remove the SELinux policy for plat_sepolicy.cil, preserve policy using cp
