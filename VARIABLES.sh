@@ -2,6 +2,7 @@
 
 # Modify your variables here to corretly reference your directory and subdir
 # get current dir of this script
+# the example output for this is "C:\Windows",if using pwd only "C:\Windows\"
 Root="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Your Windows architecture, x64 or arm64
@@ -14,7 +15,7 @@ elif [ $Architecture == 'arm64' ||
 $Architecture == 'aarch64' ]; then
     Architecture="ARM64"
 else 
-    echo "is your cpu 64 or arm64 ??"
+    echo "is your cpu 64 bit or arm64 ?"
     exit
 fi
 
