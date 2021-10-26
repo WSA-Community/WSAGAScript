@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# added quote mark ('"') for every variable so it wont conflict when path has space/whitespace
+# added quote mark ('"') for every variable so it wont be a problem if the path has space/whitespace
 . ./VARIABLES.sh
 
 echo "Copying build.prop for each image"
