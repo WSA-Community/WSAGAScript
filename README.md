@@ -113,4 +113,4 @@ You can sign in successfully from now on.
 
 # Kernel source
 
-The kernel is compiled from this repo, licensed under GPL-2.0: https://github.com/LSPosed/WSA-Kernel-SU
+The kernel is compiled from this repo, licensed under GPLv2: https://github.com/LSPosed/WSA-Kernel-SU/tree/kernel
