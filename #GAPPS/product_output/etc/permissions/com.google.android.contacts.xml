@@ -1,0 +1,29 @@
+<permissions>
+  <privapp-permissions package="com.google.android.contacts">
+    <permission name="android.permission.READ_CONTACTS" />
+  <permission name="android.permission.WRITE_CONTACTS" />
+  <permission name="android.permission.GET_ACCOUNTS" />
+  <permission name="android.permission.GET_ACCOUNTS_PRIVILEGED" />
+  <permission name="android.permission.MANAGE_ACCOUNTS" />
+  <permission name="android.permission.ACCESS_NETWORK_STATE" />
+  <permission name="android.permission.CALL_PHONE" />
+  <permission name="android.permission.INTERNET" />
+  <permission name="android.permission.NFC" />
+  <permission name="android.permission.READ_PHONE_NUMBERS" />
+  <permission name="android.permission.READ_PHONE_STATE" />
+  <permission name="android.permission.WAKE_LOCK" />
+  <permission name="android.permission.WRITE_SETTINGS" />
+  <permission name="android.permission.USE_CREDENTIALS" />
+  <permission name="android.permission.VIBRATE" />
+  <permission name="android.permission.READ_SYNC_SETTINGS" />
+  <permission name="android.permission.READ_EXTERNAL_STORAGE" />
+  <permission name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+  <permission name="android.permission.WRITE_SYNC_SETTINGS" />
+  <permission name="android.permission.READ_SYNC_STATS" />
+  <permission name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <permission name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+  <permission name="com.google.android.c2dm.permission.RECEIVE" />
+  <permission name="android.permission.FOREGROUND_SERVICE" />
+  <permission name="android.permission.HIDE_OVERLAY_WINDOWS" />
+  </privapp-permissions>
+</permissions>

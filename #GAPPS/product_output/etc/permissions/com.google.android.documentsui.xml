@@ -1,0 +1,16 @@
+<permissions>
+  <privapp-permissions package="com.google.android.documentsui">
+    <permission name="android.permission.QUERY_ALL_PACKAGES" />
+  <permission name="android.permission.MANAGE_DOCUMENTS" />
+  <permission name="android.permission.REMOVE_TASKS" />
+  <permission name="android.permission.FOREGROUND_SERVICE" />
+  <permission name="android.permission.WAKE_LOCK" />
+  <permission name="android.permission.CACHE_CONTENT" />
+  <permission name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <permission name="android.permission.CHANGE_OVERLAY_PACKAGES" />
+  <permission name="android.permission.INTERACT_ACROSS_USERS" />
+  <permission name="android.permission.MODIFY_QUIET_MODE" />
+  <permission name="android.permission.LOG_COMPAT_CHANGE" />
+  <permission name="android.permission.READ_COMPAT_CHANGE_CONFIG" />
+  </privapp-permissions>
+</permissions>
