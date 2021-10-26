@@ -52,13 +52,13 @@ cd ../\#GAPPS
 cp /mnt/path-to-downloaded-gapps/*.zip .
 ```
 
-paths in wsl follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/users would be the c:\users folder
+Paths in WSL follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/Users would be the C:\Users folder
 
 ### Edit scripts
 
-If you are using device with ARM architecture (e.g., Qualcomm Snapdragon), please edit `VARIABLES.sh` and set correct architecture.
+If you're using devices with ARM architecture (e.g., Qualcomm Snapdragon), please edit `VARIABLES.sh` and set the correct architecture.
 
-Set executable permission for the scripts
+Set executable permission for the scripts:
 
 ```bash
 cd ..
@@ -106,7 +106,7 @@ Copy the kernel file from this repo and replace the kernel file inside the `Tool
 
 This will allow you to use `su` inside the `adb shell`.
 
-Enter into the `adb shell` and run the following commands
+Enter into the `adb shell` and run the following commands:
 
 ```bash
 su
