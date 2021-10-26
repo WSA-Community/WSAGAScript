@@ -17,6 +17,7 @@ rm -Rf $InstallDir/app/ExtShared/
 rm -Rf $InstallDir/priv-app/PackageInstaller/
 rm -Rf $InstallDir/priv-app/SoundPicker/
 rm -Rf $MountPointProduct/app/Music/
+rm -Rf $MountPointProduct/app/talkback/
 rm -Rf $MountPointProduct/priv-app/Contacts/
 
 echo "Copying GApps files to system..."
