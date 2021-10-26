@@ -15,6 +15,7 @@ rm -Rf $InstallDir/apex/com.android.extservices/
 rm -Rf $InstallDir/app/DocumentsUI/
 rm -Rf $InstallDir/app/ExtShared/
 rm -Rf $InstallDir/priv-app/PackageInstaller/
+rm -Rf $InstallDir/priv-app/SoundPicker/
 rm -Rf $MountPointProduct/app/Music/
 rm -Rf $MountPointProduct/priv-app/Contacts/
 
