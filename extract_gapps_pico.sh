@@ -29,7 +29,7 @@ echo "Merging subfolders"
 for D in $GAppsOutputFolder/*; do [ -d "${D}" ] && cp -r ${D}/* $GAppsOutputFolder && rm -rf ${D}; done
 
 echo "Post merge operation"
-mv -i $GAppsOutputFolder/product/ $GAppsRoot/product_output/
+cp -ra $GAppsOutputFolder/product/* $GAppsRoot/product_output/
 
 echo "Deleting temporary files"
 rm -rf $GAppsTmpFolder
