@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Modify your variables here to corretly reference your directory and subdir
-Root="/mnt/c/GAppsWSA"
+Root="$(pwd)"
 
 # Your Windows architecture, x64 or arm64
 Architecture="x64"
@@ -22,3 +22,4 @@ MountPointVendor="/mnt/vendor"
 
 InstallPartition="/mnt/system"
 InstallDir="$InstallPartition/system"
+

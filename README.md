@@ -60,36 +60,18 @@ Set executable permission for the scripts
 
 ```bash
 cd ..
-sudo chmod +x extract_gapps_pico.sh
-sudo chmod +x extend_and_mount_images.sh
-sudo chmod +x apply.sh
-sudo chmod +x unmount_images.sh
-```
-
-Change the root directory in VARIABLES.sh
-
-```bash
-pwd
-```
-
-(take note of the output)
-
-```bash
-nano VARIABLES.sh
-```
-
-replace the root variable with the output of pwd up until and including the WSAGAScript folder
-
-**Debian WSL users need to create an mtab symlink:**
-
-```bash
-sudo ln -s /proc/self/mounts /etc/mtab
+chmod +x extract_gapps_pico.sh
+chmod +x extend_and_mount_images.sh
+chmod +x apply.sh
+chmod +x unmount_images.sh
 ```
 
 ### Run the scripts
 
+make sure you're in the same directory as the scripts before running, then run:
+
 ```bash
-sudo ./extract_gapps_pico.sh
+./extract_gapps_pico.sh
 sudo ./extend_and_mount_images.sh
 sudo ./apply.sh
 sudo ./unmount_images.sh

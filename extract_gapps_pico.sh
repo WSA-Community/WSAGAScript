@@ -21,7 +21,6 @@ for f in "$GAppsExtractFolder/GApps/"*.lz; do tar --lzip -xvf "$f" -C $GAppsTmpF
 
 echo "Deleting duplicates & conflicting apps"
 rm -rf "$GAppsTmpFolder/setupwizardtablet-x86_64" # We already have setupwizard "default"
-rm -rf "$GAppsTmpFolder/packageinstallergoogle-all" # The image already has a package installer, and we are not allowed to have two.
 
 echo "Merging folders"
 for D in $GAppsTmpFolder/*; do [ -d "${D}" ] && cp -r ${D}/* $GAppsOutputFolder; done
@@ -30,7 +29,7 @@ echo "Merging subfolders"
 for D in $GAppsOutputFolder/*; do [ -d "${D}" ] && cp -r ${D}/* $GAppsOutputFolder && rm -rf ${D}; done
 
 echo "Post merge operation"
-cp -r $GAppsOutputFolder/product/* $GAppsOutputFolder && rm -rf "$GAppsOutputFolder/product";
+mv -i $GAppsOutputFolder/product/ $GAppsRoot/product_output/
 
 echo "Deleting temporary files"
 rm -rf $GAppsTmpFolder
