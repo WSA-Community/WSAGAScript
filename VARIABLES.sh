@@ -2,8 +2,7 @@
 
 # Modify your variables here to corretly reference your directory and subdir
 # get current dir of this script
-# the example output for this is "C:\Windows",if using pwd only "C:\Windows\"
-Root="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+Root="$(pwd)"
 
 # Your Windows architecture, x64 or arm64
 # get architecture based on wsl architecture 
