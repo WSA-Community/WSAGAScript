@@ -11,6 +11,8 @@ cp "$PropRoot/build_vendor.prop" /mnt/vendor/build.prop
 cp "$PropRoot/build_vendor_odm.prop" /mnt/vendor/odm/etc/vendor.prop
 
 printf 'removing duplicate apps from system\n'
+rm -Rf $InstallDir/apex/com.android.extservices/
+rm -Rf $InstallDir/app/ExtShared/
 rm -Rf $InstallDir/priv-app/PackageInstaller/
 
 echo "Copying GApps files to system..."
