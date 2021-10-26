@@ -14,7 +14,6 @@ printf 'removing duplicate apps from system\n'
 rm -Rf $InstallDir/apex/com.android.extservices/
 rm -Rf $InstallDir/app/ExtShared/
 rm -Rf $InstallDir/priv-app/PackageInstaller/
-rm -Rf $MountPointProduct/app/webview/
 
 echo "Copying GApps files to system..."
 cp -f -a $GAppsOutputFolder/app/* $InstallDir/app
