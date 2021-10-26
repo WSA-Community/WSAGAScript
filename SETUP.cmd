@@ -1,6 +1,6 @@
 @echo off
 
-rem get req key for windows developer mode
+rem get registry key for windows developer mode
 set KEY_NAME="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
 set VALUE_NAME=AllowDevelopmentWithoutDevLicense
 FOR /F "tokens=2* skip=2" %%a in ('reg query "%KEY_NAME%" /v "%VALUE_NAME%"') do set ValueValue=%%b
@@ -20,10 +20,11 @@ pushd %current_dir%
 if exist %current_dir%install.sh (
     wsl sudo ./install.sh
 ) else (
-    echo user_promt.sh not found
+    rem for some reason this else is showing even the install.sh is exist
+    echo install.sh.sh not found
     timeout 3 >nul
 )
-rem install appx
+rem get uac confirm from sudo.vbs and then install appx-package
 for /d %%a in ("%current_dir%msix_unpack\*") do set manifest=%%~fa%\AppxManifest.xml
 "%current_dir%sudo.vbs" powershell Add-AppxPackage -Register '%manifest%'
 pause
