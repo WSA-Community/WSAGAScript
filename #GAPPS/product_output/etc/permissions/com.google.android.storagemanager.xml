@@ -1,0 +1,20 @@
+<permissions>
+  <privapp-permissions package="com.google.android.storagemanager">
+    <permission name="android.permission.PACKAGE_USAGE_STATS" />
+  <permission name="android.permission.GET_PACKAGE_SIZE" />
+  <permission name="android.permission.DELETE_PACKAGES" />
+  <permission name="android.permission.READ_EXTERNAL_STORAGE" />
+  <permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <permission name="android.permission.MANAGE_USERS" />
+  <permission name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+  <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+  <permission name="android.permission.INTERACT_ACROSS_USERS" />
+  <permission name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <permission name="android.permission.USE_RESERVED_DISK" />
+  <permission name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+  <permission name="android.permission.ACCESS_NETWORK_STATE" />
+  <permission name="android.permission.INTERNET" />
+  <permission name="android.permission.GET_ACCOUNTS" />
+  <permission name="android.permission.READ_PHONE_STATE" />
+  </privapp-permissions>
+</permissions>
