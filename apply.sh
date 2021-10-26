@@ -16,6 +16,7 @@ rm -Rf $InstallDir/app/DocumentsUI/
 rm -Rf $InstallDir/app/ExtShared/
 rm -Rf $InstallDir/priv-app/PackageInstaller/
 rm -Rf $InstallDir/priv-app/SoundPicker/
+rm -Rf $MountPointProduct/app/Gallery2/
 rm -Rf $MountPointProduct/app/Music/
 rm -Rf $MountPointProduct/app/talkback/
 rm -Rf $MountPointProduct/priv-app/Contacts/
