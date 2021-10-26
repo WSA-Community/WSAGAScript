@@ -35,6 +35,7 @@ find $InstallDir/framework -exec chown root:root {} &>/dev/null \;
 find $InstallDir/lib -exec chown root:root {} &>/dev/null \;
 find $InstallDir/lib64 -exec chown root:root {} &>/dev/null \;
 find $MountPointProduct/app -exec chown root:root {} &>/dev/null \;
+find $MountPointProduct/etc -exec chown root:root {} &>/dev/null \;
 find $MountPointProduct/overlay -exec chown root:root {} &>/dev/null \;
 find $MountPointProduct/priv-app -exec chown root:root {} &>/dev/null \;
 
@@ -46,6 +47,7 @@ find $InstallDir/framework -type d -exec chmod 755 {} \;
 find $InstallDir/lib -type d -exec chmod 755 {} \;
 find $InstallDir/lib64 -type d -exec chmod 755 {} \;
 find $MountPointProduct/app  -type d -exec chmod 755 {} \;
+find $MountPointProduct/etc  -type d -exec chmod 755 {} \;
 find $MountPointProduct/overlay -type d -exec chmod 755 {} \;
 find $MountPointProduct/priv-app -type d -exec chmod 755 {} \;
 
@@ -60,6 +62,7 @@ find $InstallDir/etc/default-permissions -type f -exec chmod 644 {} \;
 find $InstallDir/etc/preferred-apps -type f -exec chmod 644 {} \;
 find $InstallDir/etc/sysconfig -type f -exec chmod 644 {} \;
 find $MountPointProduct/app -type f -exec chmod 644 {} \;
+find $MountPointProduct/etc -type f -exec chmod 644 {} \;
 find $MountPointProduct/overlay -type f -exec chmod 644 {} \;
 find $MountPointProduct/priv-app -type f -exec chmod 644 {} \;
 
@@ -74,6 +77,7 @@ find $InstallDir/etc/default-permissions -type d -exec chcon --reference=$Instal
 find $InstallDir/etc/preferred-apps -type d -exec chcon --reference=$InstallDir/etc/permissions {} \;
 find $InstallDir/etc/sysconfig -type d -exec chcon --reference=$InstallDir/etc/sysconfig {} \;
 find $MountPointProduct/app -type d -exec chcon --reference=$MountPointProduct/app {} \;
+find $MountPointProduct/etc/permissions  -type d -exec chcon --reference=$MountPointProduct/etc/permissions {} \;
 find $MountPointProduct/overlay -type d -exec chcon --reference=$MountPointVendor/overlay {} \;
 find $MountPointProduct/priv-app  -type d -exec chcon --reference=$MountPointProduct/priv-app {} \;
 
@@ -88,6 +92,7 @@ find $InstallDir/etc/default-permissions -type f -exec chcon --reference=$Instal
 find $InstallDir/etc/preferred-apps -type f -exec chcon --reference=$InstallDir/etc/fs_config_dirs {} \;
 find $InstallDir/etc/sysconfig -type f -exec chcon --reference=$InstallDir/etc/fs_config_dirs {} \;
 find $MountPointProduct/app  -type f -exec chcon --reference=$MountPointProduct/app/ModuleMetadata/ModuleMetadata.apk {} \;
+find $MountPointProduct/etc/permissions -type f -exec chcon --reference=$MountPointProduct/etc/permissions/privapp-permissions-venezia.xml {} \;
 find $MountPointProduct/overlay -type f -exec chcon --reference=$MountPointVendor/overlay/framework-res__auto_generated_rro_vendor.apk {} \;
 find $MountPointProduct/priv-app -type f -exec chcon --reference=$MountPointProduct/priv-app/amazon-adm-release/amazon-adm-release.apk {} \;
 
