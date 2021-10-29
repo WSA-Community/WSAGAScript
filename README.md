@@ -49,7 +49,7 @@ git clone https://github.com/WSA-Community/WSAGAScript
 cd WSAGAScript/\#IMAGES
 mv /mnt/path-to-extracted-msix/*.img .
 cd ../\#GAPPS
-cp /mnt/path-to-downloaded-gapps/*.zip .
+cp /mnt/path-to-downloaded-gapps/gapps-zip-file-name.zip .
 ```
 
 Paths in WSL follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/Users would be the C:\Users folder
