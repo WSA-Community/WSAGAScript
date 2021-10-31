@@ -1,0 +1,37 @@
+<permissions>
+  <privapp-permissions package="com.google.android.apps.nbu.files">
+    <permission name="android.permission.WAKE_LOCK" />
+  <permission name="com.google.android.apps.nbu.files.permission.C2D_MESSAGE" />
+  <permission name="com.google.android.c2dm.permission.RECEIVE" />
+  <permission name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+  <permission name="android.permission.READ_EXTERNAL_STORAGE" />
+  <permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <permission name="android.permission.ACCESS_MEDIA_LOCATION" />
+  <permission name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <permission name="android.permission.READ_PHONE_STATE" />
+  <permission name="android.permission.ACCESS_NETWORK_STATE" />
+  <permission name="android.permission.ACCESS_COARSE_LOCATION" />
+  <permission name="android.permission.ACCESS_FINE_LOCATION" />
+  <permission name="android.permission.ACCESS_WIFI_STATE" />
+  <permission name="android.permission.BLUETOOTH" />
+  <permission name="android.permission.BLUETOOTH_ADMIN" />
+  <permission name="android.permission.CHANGE_NETWORK_STATE" />
+  <permission name="android.permission.CHANGE_WIFI_STATE" />
+  <permission name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+  <permission name="android.permission.INTERNET" />
+  <permission name="android.permission.WRITE_SETTINGS" />
+  <permission name="android.permission.FOREGROUND_SERVICE" />
+  <permission name="android.permission.PACKAGE_USAGE_STATS" />
+  <permission name="android.permission.GET_PACKAGE_SIZE" />
+  <permission name="com.android.vending.p2p.APP_INSTALL_API" />
+  <permission name="android.permission.REQUEST_DELETE_PACKAGES" />
+  <permission name="android.permission.GET_ACCOUNTS" />
+  <permission name="android.permission.MANAGE_ACCOUNTS" />
+  <permission name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+  <permission name="android.permission.QUERY_ALL_PACKAGES" />
+  <permission name="android.permission.BLUETOOTH_ADVERTISE" />
+  <permission name="android.permission.BLUETOOTH_CONNECT" />
+  <permission name="android.permission.BLUETOOTH_SCAN" />
+  <permission name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  </privapp-permissions>
+</permissions>

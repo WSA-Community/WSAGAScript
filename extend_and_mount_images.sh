@@ -12,7 +12,7 @@ echo "chk product.img"
 e2fsck -f $ImagesRoot/product.img
 
 echo "Resizing product.img"
-resize2fs $ImagesRoot/product.img 240M
+resize2fs $ImagesRoot/product.img 1024M
 
 echo "chk system.img"
 e2fsck -f $ImagesRoot/system.img
