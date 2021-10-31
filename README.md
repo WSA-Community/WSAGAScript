@@ -88,7 +88,7 @@ cp *.img /mnt/path-to-extracted-msix/
 
 - Enable developer mode in windows settings.
 - Uninstall any other installed versions of WSA
-- Open powershell as admin and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
+- Open Windows PowerShell (not PowerShell) as admin and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
 
 WSA will install with gapps, make sure to install android system webview from the play store after signing in.
 
