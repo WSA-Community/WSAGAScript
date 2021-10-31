@@ -27,8 +27,8 @@ Ubuntu is used in this guide, but any other distro will work for this just fine.
 For Ubuntu
 
 ```bash
-sudo apt-get update
-sudo apt-get install unzip lzip
+sudo apt update
+sudo apt install unzip lzip
 ```
 
 ### Download gapps
@@ -52,11 +52,13 @@ cd ../\#GAPPS
 cp /mnt/path-to-downloaded-gapps/*.zip .
 ```
 
-paths in wsl follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/users would be the c:\users folder
+Paths in WSL follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/Users would be the C:\Users folder
 
 ### Edit scripts
 
-Set executable permission for the scripts
+If you're using devices with ARM architecture (e.g., Qualcomm Snapdragon), please edit `VARIABLES.sh` and set the correct architecture.
+
+Set executable permission for the scripts:
 
 ```bash
 cd ..
@@ -94,22 +96,23 @@ WSA will install with gapps, make sure to install android system webview from th
 
 ## Root access
 
-You can get root access by replacing the kernel. (This step is no longer required to sign in gapps)
+You can get root access by replacing the kernel. (This step is no longer required to sign in gapps.)
+
+This kernel is only for `x64` architecture.
 
 ### (ADB SHELL ROOT WITH su)
 
 Copy the kernel file from this repo and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running)
 
-This will allow you to use use `su` inside the `adb shell`.
+This will allow you to use `su` inside the `adb shell`.
 
-Enter into the `adb shell` and run the following commands
+Enter into the `adb shell` and run the following commands:
 
 ```bash
 su
-setenforce 0
 ```
 
-You can sign in successfully from now on.
+You are now root.
 
 # Kernel source
 
