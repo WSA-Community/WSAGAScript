@@ -2,13 +2,63 @@
 
 . ./VARIABLES.sh
 
-echo "Copying build.prop for each image"
-cp "$PropRoot/build_system_ext.prop" /mnt/system_ext/build.prop
-cp "$PropRoot/build_system.prop" /mnt/system/build.prop
-cp "$PropRoot/build_system.prop" /mnt/system/system/build.prop
-cp "$PropRoot/build_product.prop" /mnt/product/build.prop
-cp "$PropRoot/build_vendor.prop" /mnt/vendor/build.prop
-cp "$PropRoot/build_vendor_odm.prop" /mnt/vendor/odm/etc/vendor.prop
+TARGET_PRODUCT="redfin"
+TARGET_DEVICE="redfin"
+PRODUCT_BRAND="google"
+PRODUCT_MODEL="Pixel 5"
+PRODUCT_MANUFACTURER="Google"
+
+# Remove a property from a file, 
+# then append the property with provided value
+# if the property is present before
+remove_append() {
+    if grep -q -e "^$1=" $3; then
+        sed -i "/^$1=/ d" $3
+        echo "$1=$2" >> $3
+    fi
+}
+
+# Get the value of a property from a file
+get_prop() {
+    grep "^$1=" $2 | cut -d'=' -f2
+}
+
+# Fix properties
+fix_prop() {
+    COMMENT="# extra prop added by WSAGASCRIPT"
+
+    echo "-> fixing $1"
+    echo "$COMMENT" >> $2
+
+    remove_append "ro.product.$1.brand" "$PRODUCT_BRAND" $2
+    remove_append "ro.product.$1.device" "$TARGET_DEVICE" $2
+    remove_append "ro.product.$1.manufacturer" "$PRODUCT_MANUFACTURER" $2
+    remove_append "ro.product.$1.model" "$PRODUCT_MODEL" $2
+    remove_append "ro.product.$1.name" "$TARGET_PRODUCT" $2
+    remove_append "ro.build.product" "$TARGET_DEVICE" $2
+
+    BUILD_NUMBER=$(get_prop "ro.$1.build.version.incremental" $2)
+    BUILD_ID=$(get_prop "ro.$1.build.id" $2)
+    BUILD_TYPE=$(get_prop "ro.$1.build.type" $2)
+    BUILD_TAGS=$(get_prop "ro.$1.build.tags" $2)
+    PLATFORM_VERSION=$(get_prop "ro.$1.build.version.release" $2)
+    TARGET_BUILD_VARIANT=$(get_prop "ro.$1.build.type" $2)
+    BUILD_VERSION_TAGS=$(get_prop "ro.$1.build.tags" $2)
+
+    BUILD_FLAVOR="$TARGET_PRODUCT-$TARGET_BUILD_VARIANT"
+    BUILD_DESC="$BUILD_FLAVOR $PLATFORM_VERSION $BUILD_ID $BUILD_NUMBER $BUILD_VERSION_TAGS"
+    BUILD_FINGERPRINT="$PRODUCT_BRAND/$TARGET_PRODUCT/$TARGET_DEVICE:$PLATFORM_VERSION/$BUILD_ID/$BUILD_NUMBER:$TARGET_BUILD_VARIANT/$BUILD_VERSION_TAGS"
+
+    remove_append "ro.build.flavor" "$BUILD_FLAVOR" $2
+    remove_append "ro.build.description" "$BUILD_DESC" $2
+    remove_append "ro.$1.build.fingerprint" "$BUILD_FINGERPRINT" $2
+}
+
+echo "Modifing build.prop for each image"
+fix_prop system $MountPointSystem/system/build.prop
+fix_prop vendor $MountPointVendor/build.prop
+fix_prop product $MountPointProduct/build.prop
+fix_prop system_ext $MountPointSystemExt/build.prop
 
 printf 'removing duplicate apps from system\n'
 rm -Rf $InstallDir/apex/com.android.extservices/
@@ -96,6 +146,12 @@ find $MountPointProduct/app  -type f -exec chcon --reference=$MountPointProduct/
 find $MountPointProduct/etc/permissions -type f -exec chcon --reference=$MountPointProduct/etc/permissions/privapp-permissions-venezia.xml {} \;
 find $MountPointProduct/overlay -type f -exec chcon --reference=$MountPointVendor/overlay/framework-res__auto_generated_rro_vendor.apk {} \;
 find $MountPointProduct/priv-app -type f -exec chcon --reference=$MountPointProduct/priv-app/amazon-adm-release/amazon-adm-release.apk {} \;
+
+echo "Applying SELinux security contexts to props"
+chcon --reference=$MountPointSystem/system/etc $MountPointSystem/build.prop
+chcon --reference=$MountPointSystemExt/etc $MountPointSystemExt/build.prop
+chcon --reference=$MountPointProduct/etc $MountPointProduct/build.prop
+chcon --reference=$MountPointVendor/etc $MountPointVendor/build.prop
 
 echo "Applying SELinux policy"
 # Sed will remove the SELinux policy for plat_sepolicy.cil, preserve policy using cp
