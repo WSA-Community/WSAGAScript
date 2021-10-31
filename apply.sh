@@ -148,7 +148,7 @@ find $MountPointProduct/overlay -type f -exec chcon --reference=$MountPointVendo
 find $MountPointProduct/priv-app -type f -exec chcon --reference=$MountPointProduct/priv-app/amazon-adm-release/amazon-adm-release.apk {} \;
 
 echo "Applying SELinux security contexts to props"
-chcon --reference=$MountPointSystem/system/etc $MountPointSystem/build.prop
+chcon --reference=$MountPointSystem/system/etc $MountPointSystem/system/build.prop
 chcon --reference=$MountPointSystemExt/etc $MountPointSystemExt/build.prop
 chcon --reference=$MountPointProduct/etc $MountPointProduct/build.prop
 chcon --reference=$MountPointVendor/etc $MountPointVendor/build.prop
