@@ -1,5 +1,7 @@
 import asyncio
 import concurrent.futures
+import traceback
+
 import requests
 import os
 
@@ -61,5 +63,14 @@ def speed_download(url, root, filename=None):
 
     os.makedirs(root, exist_ok=True)
     print(f"Downloading {url} to {fpath}")
-    loop.run_until_complete(download(executor, url, fpath))
+    while True:
+        try:
+            loop.run_until_complete(download(executor, url, fpath))
+        except Exception as e:
+            print(e)
+            print(traceback.format_exc())
+            print("Trying download again.")
+            continue
+        else:
+            break
 
