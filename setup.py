@@ -155,9 +155,10 @@ if __name__ == "__main__":
 
         # rooted kernel
         if cpu_arch.casefold() == "amd64":
-            shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel-x86_64', "./TEMP/wsa_main/Tools")
+            os.rename('./TEMP/WSAGAScript-main/misc/kernel-x86_64', "kernel")
         else:
-            shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel-arm64', "./TEMP/wsa_main/Tools")
+            os.rename('./TEMP/WSAGAScript-main/misc/kernel-arm64', "kernel")
+        shutil.copy('./TEMP/WSAGAScript-main/misc/kernel', "./TEMP/wsa_main/Tools")
 
         # bypasses Windows 11 requirement
         manifest_data = minidom.parse("./TEMP/wsa_main/AppxManifest.xml")
@@ -188,7 +189,7 @@ if __name__ == "__main__":
                 print(f"Deleting version {existing_install_version}.")
                 remove(os.path.join(install_loc, str(existing_install_version)))
             WindowError("WSA with GApps and root access installed. Press ENTER to exit.",
-                        color="green", tx_color="black").wait_window()
+                        color="green", tx_color="white").wait_window()
         else:
             remove(new_install_location)
             WindowError("Package installation failed. Installation has been rolled back.").wait_window()
