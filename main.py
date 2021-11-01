@@ -30,16 +30,7 @@ existing_install_version = None
 def cleanup():
     cur_dir = os.path.dirname(__file__)
     os.chdir(cur_dir)
-    remove("./TEMP/wsa")
-    remove("./TEMP/wsa_main")
-    remove("./TEMP/WSAGAScript-main")
-    remove("./TEMP/wsa.zip")
-    remove("./TEMP/WSAGAScript.zip")
-    remove("./TEMP/wsl_update_x64.msi")
-    if os.path.exists("./TEMP"):
-        for f in os.listdir("./TEMP"):
-            if fnmatch.fnmatch(f, "*.part*"):
-                remove(os.path.join("./TEMP", f))
+    remove("./TEMP")
 
 
 if __name__ == "__main__":
@@ -47,7 +38,6 @@ if __name__ == "__main__":
         # gets admin and modifies registry for developer mode, tries to enable WSL,
         # and switches to the executable directory (just don't want to be execute in the wrong one,
         # which may delete important stuff
-
         get_admin_permission()
         executable_dir = os.path.dirname(__file__)
         # if the script executes in the shell with the location C:\,
@@ -67,6 +57,8 @@ if __name__ == "__main__":
         os.makedirs("./TEMP/wsa", exist_ok=True)
         os.makedirs("./TEMP/wsa_main", exist_ok=True)
         os.makedirs(install_loc, exist_ok=True)
+
+        # obtains WSA package link and version
         wsa_entry_result = get_wsa_entry()
         if not wsa_entry_result:
             wsa_archive_version = None
@@ -79,6 +71,7 @@ if __name__ == "__main__":
                 raise Exception("Sanity check failed. WSA archive version not found.")
             try:
                 existing_install_version = max(map(version.parse, os.listdir(install_loc)))
+                # exception will be raised so that the new installation mode is used if there is nothing
                 if not existing_install_version:
                     # makes sure the version is not empty. Empty directories may cause unintentional deletions.
                     raise Exception("Sanity check failed. WSA existing version not found.")
@@ -94,6 +87,7 @@ if __name__ == "__main__":
             speed_download(wsa_archive_url, "./TEMP", "wsa.zip")
             shutil.unpack_archive("./TEMP/wsa.zip", "./TEMP/wsa", "zip")
 
+        # unpacks the x64 archive
         for _ in os.listdir("./TEMP/wsa"):
             if fnmatch.fnmatch(_, "*x64_Release*.msix"):
                 shutil.unpack_archive(f"./TEMP/wsa/{_}", "./TEMP/wsa_main", "zip")
@@ -148,7 +142,7 @@ if __name__ == "__main__":
         # rooted kernel
         shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel', "./TEMP/wsa_main/Tools")
 
-        # installs and bypasses Windows 11 requirement
+        # bypasses Windows 11 requirement
         manifest_data = minidom.parse("./TEMP/wsa_main/AppxManifest.xml")
         selected_element = manifest_data.getElementsByTagName("TargetDeviceFamily")[0]
         selected_element.attributes["MinVersion"].value = "10.0.19043.1237"
@@ -156,22 +150,26 @@ if __name__ == "__main__":
         with open("./TEMP/wsa_main/AppxManifest.xml", "w", encoding="utf-8") as file:
             file.write(manifest_data.toxml())
 
-        new_install_location = os.path.realpath(os.path.join("C:/Program Files/WSA_Advanced", str(wsa_archive_version)))
+        # installs
+        new_install_location = os.path.realpath(os.path.join(install_loc, str(wsa_archive_version)))
         print(f'Installing to {new_install_location}')
         os.makedirs(new_install_location, exist_ok=True)
 
         for file in os.listdir("./TEMP/wsa_main"):
             shutil.move(os.path.join("./TEMP/wsa_main", file), new_install_location)
+        install_process = subprocess.run(f"powershell.exe Add-AppxPackage "
+                                         f"-Register '{new_install_location}\\AppXManifest.xml' "
+                                         f"-ForceTargetApplicationShutdown")
 
-        # cleans up
+        # cleans up temporary folder
         print("Cleaning up temporary files.")
         cleanup()
-        install_process = subprocess.run(f"powershell.exe Add-AppxPackage -Register '{new_install_location}\\AppXManifest.xml'")
 
+        # deletes either the old or new version depending on return code
         if not install_process.returncode:
             if existing_install_version:
                 print(f"Deleting version {existing_install_version}.")
-                remove(os.path.join("C:/Program Files/WSA_Advanced", str(existing_install_version)))
+                remove(os.path.join(install_loc, str(existing_install_version)))
             input("WSA with GApps and root access installed. Press ENTER to exit.")
         else:
             remove(new_install_location)
