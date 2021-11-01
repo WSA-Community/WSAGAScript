@@ -195,7 +195,8 @@ if __name__ == "__main__":
     except Exception as e:
         cleanup()
         print(traceback.format_exc())
-        WindowError("Install failure. An exception occured. Installation has been rolled back.").wait_window()
+        WindowError("Install failure. An exception occured. Installation has been rolled back.",
+                    tx_color="white").wait_window()
         with open("error.log", "w") as file:
             print(e, file=file)
             print(traceback.format_exc(), file=file)
