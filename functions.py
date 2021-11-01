@@ -2,20 +2,12 @@ import os
 import time
 import shutil
 import tkinter
-import traceback
-from tkinter import filedialog
 from tkinter.font import Font
 import ctypes
 import sys
 from sys import exit
 from urllib import request, error
 from speed_downloader import speed_download
-
-
-def request_file_name(**kwargs):
-    root = tkinter.Tk()
-    root.withdraw()
-    return tkinter.filedialog.askopenfilename(**kwargs)
 
 
 def download_url(url, root=".", filename=None):

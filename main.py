@@ -7,6 +7,8 @@ from wsa_online_link_generator import *
 import fnmatch
 from speed_downloader import speed_download
 from xml.dom import minidom
+from packaging import version
+import subprocess
 
 # URL to download WSA Script from GitHub
 wsagascript_url = "https://github.com/ADeltaX/WSAGAScript/archive/refs/heads/main.zip"
@@ -14,8 +16,30 @@ wsagascript_url = "https://github.com/ADeltaX/WSAGAScript/archive/refs/heads/mai
 # URL to download GApps from SourceForge. Hardcoded :(
 gapps_url = "https://nchc.dl.sourceforge.net/project/opengapps/x86_64/20211021/open_gapps-x86_64-11.0-pico-20211021.zip"
 
+# directories for system images
 gapps_dir = "./TEMP/WSAGAScript-main/#GAPPS"
 images_dir = "./TEMP/WSAGAScript-main/#IMAGES"
+
+# instead of installing in a temporary folder, move everything to install_loc before installing
+install_loc = "C:/Program Files/WSA_Advanced/"
+
+# preinstalled version initialization
+existing_install_version = None
+
+
+def cleanup():
+    cur_dir = os.path.dirname(__file__)
+    os.chdir(cur_dir)
+    remove("./TEMP/wsa")
+    remove("./TEMP/wsa_main")
+    remove("./TEMP/WSAGAScript-main")
+    remove("./TEMP/wsa.zip")
+    remove("./TEMP/WSAGAScript.zip")
+    if os.path.exists("./TEMP"):
+        for f in os.listdir("./TEMP"):
+            if fnmatch.fnmatch(f, "*.part*"):
+                remove(os.path.join("./TEMP", f))
+
 
 if __name__ == "__main__":
     try:
@@ -25,7 +49,8 @@ if __name__ == "__main__":
 
         get_admin_permission()
         executable_dir = os.path.dirname(__file__)
-
+        # if the script executes in the shell with the location C:\,
+        # it will affect the folder C:\TEMP (which is NOT good)
         print(f"EXECUTABLE DIRECTORY: {executable_dir}")
         os.chdir(executable_dir)
         print(f'WSL install status: {is_linux_enabled("debian")}')
@@ -34,34 +59,37 @@ if __name__ == "__main__":
                  ' /t REG_DWORD'
                  ' /f /v "AllowDevelopmentWithoutDevLicense" /d "1"').read()
 
-
-        def cleanup():
-            remove("./TEMP/wsa")
-            remove("./TEMP/wsa_main")
-            remove("./TEMP/WSAGAScript-main")
-            remove("./TEMP/wsa.zip")
-            remove("./TEMP/WSAGAScript.zip")
-            for f in os.listdir("./TEMP"):
-                if fnmatch.fnmatch(f, "*.part*"):
-                    remove(os.path.join("./TEMP", f))
-
-
         cleanup()
 
         # creates WSA directories
-        # downloads the newest version of WSA. Otherwise asks for a MSIX archive if the link happens to not be found
+        # Checks for updates and downloads the newest version of WSA.
         os.makedirs("./TEMP/wsa", exist_ok=True)
         os.makedirs("./TEMP/wsa_main", exist_ok=True)
-        wsa_archive_url = get_wsa_linkstore_id()
-        if not wsa_archive_url:
-            wsa_archive_dir = request_file_name(title="Select Windows Subsystem for Android MSIXBUNDLE archive",
-                                                initialdir=".",
-                                                filetypes=(('MSIX bundle files', '*.msixbundle'),))
-            if not wsa_archive_dir:
-                exit()
-            print(f"ARCHIVE LOCATION: {wsa_archive_dir}")
-            shutil.unpack_archive(wsa_archive_dir, "./TEMP/wsa", "zip")
+        os.makedirs(install_loc, exist_ok=True)
+        wsa_entry_result = get_wsa_entry()
+        if not wsa_entry_result:
+            wsa_archive_version = None
+            input("No matching Windows Subsystem for Android package was found. Press ENTER to exit.")
+            exit()
         else:
+            wsa_archive_url, wsa_archive_name = wsa_entry_result
+            wsa_archive_version = version.parse(wsa_archive_name.split("_")[1])
+            if not wsa_archive_version:
+                raise Exception("Sanity check failed. WSA archive version not found.")
+            try:
+                existing_install_version = max(map(version.parse, os.listdir(install_loc)))
+                if not existing_install_version:
+                    # makes sure the version is not empty. Empty directories may cause unintentional deletions.
+                    raise Exception("Sanity check failed. WSA existing version not found.")
+                print(f"Existing installation version: {existing_install_version}")
+                print(f'Latest version:                {wsa_archive_version}')
+                if wsa_archive_version <= existing_install_version:
+                    input("Windows Subsystem for Android is up-to-date. Press ENTER to exit.")
+                    exit()
+                else:
+                    print("Updating WSA...")
+            except ValueError:
+                print("New installation detected.")
             speed_download(wsa_archive_url, "./TEMP", "wsa.zip")
             shutil.unpack_archive("./TEMP/wsa.zip", "./TEMP/wsa", "zip")
 
@@ -127,15 +155,30 @@ if __name__ == "__main__":
         with open("./TEMP/wsa_main/AppxManifest.xml", "w", encoding="utf-8") as file:
             file.write(manifest_data.toxml())
 
-        print(os.popen("powershell.exe Add-AppxPackage -Register .\\TEMP\\wsa_main\\AppXManifest.xml").read())
+        new_install_location = os.path.realpath(os.path.join("C:/Program Files/WSA_Advanced", str(wsa_archive_version)))
+        print(f'Installing to {new_install_location}')
+        os.makedirs(new_install_location, exist_ok=True)
+
+        for file in os.listdir("./TEMP/wsa_main"):
+            shutil.move(os.path.join("./TEMP/wsa_main", file), new_install_location)
 
         # cleans up
-        print()
         print("Cleaning up temporary files.")
         cleanup()
-        input("WSA with GApps and root access installed. Press Enter to exit.")
+        install_process = subprocess.run(f"powershell.exe Add-AppxPackage -Registe '{new_install_location}\\AppXManifest.xml'")
 
+        if not install_process.returncode:
+            if existing_install_version:
+                print(f"Deleting version {existing_install_version}.")
+                remove(os.path.join("C:/Program Files/WSA_Advanced", str(existing_install_version)))
+            input("WSA with GApps and root access installed. Press ENTER to exit.")
+        else:
+            remove(new_install_location)
+            input("Package install failure. Installation has been rolled back. Press ENTER to exit.")
     except Exception as e:
+        cleanup()
+        print(traceback.format_exc())
+        input("Install failure. An exception occured. Installation has been rolled back. Press ENTER to exit.")
         with open("error.log", "w") as file:
             print(e, file=file)
             print(traceback.format_exc(), file=file)
