@@ -1,3 +1,4 @@
+import platform
 from functions import *
 import os
 import shutil
@@ -13,8 +14,9 @@ import subprocess
 # URL to download WSA Script from GitHub
 wsagascript_url = "https://github.com/ADeltaX/WSAGAScript/archive/refs/heads/main.zip"
 
-# URL to download GApps from SourceForge. Hardcoded :(
-gapps_url = "https://nchc.dl.sourceforge.net/project/opengapps/x86_64/20211021/open_gapps-x86_64-11.0-pico-20211021.zip"
+# URLs to download GApps from SourceForge. Hardcoded :(
+gapps_url_x64 = "https://nchc.dl.sourceforge.net/project/opengapps/x86_64/20211021/open_gapps-x86_64-11.0-pico-20211021.zip"
+gapps_url_arm64 = "https://nchc.dl.sourceforge.net/project/opengapps/arm64/20211030/open_gapps-arm64-11.0-pico-20211030.zip"
 
 # directories for system images
 gapps_dir = "./TEMP/WSAGAScript-main/#GAPPS"
@@ -25,6 +27,8 @@ install_loc = "C:/Program Files/WSA_Advanced/"
 
 # preinstalled version initialization
 existing_install_version = None
+
+supported_architecture = ["arm64", "amd64"]
 
 
 def cleanup():
@@ -44,12 +48,17 @@ if __name__ == "__main__":
         # it will affect the folder C:\TEMP (which is NOT good)
         print(f"EXECUTABLE DIRECTORY: {executable_dir}")
         os.chdir(executable_dir)
+
+        cpu_arch = platform.machine()
+        if cpu_arch.casefold() not in supported_architecture:
+            WindowError("Your CPU does not support Windows Subsystem for Android.").wait_window()
+            exit()
+
         print(f'WSL install status: {is_linux_enabled("debian")}')
 
         os.popen('reg add "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock"'
                  ' /t REG_DWORD'
                  ' /f /v "AllowDevelopmentWithoutDevLicense" /d "1"').read()
-
         cleanup()
 
         # creates WSA directories
@@ -62,7 +71,7 @@ if __name__ == "__main__":
         wsa_entry_result = get_wsa_entry()
         if not wsa_entry_result:
             wsa_archive_version = None
-            input("No matching Windows Subsystem for Android package was found. Press ENTER to exit.")
+            WindowError("No matching Windows Subsystem for Android package was found. Press ENTER to exit.")
             exit()
         else:
             wsa_archive_url, wsa_archive_name = wsa_entry_result
@@ -87,15 +96,17 @@ if __name__ == "__main__":
             speed_download(wsa_archive_url, "./TEMP", "wsa.zip")
             shutil.unpack_archive("./TEMP/wsa.zip", "./TEMP/wsa", "zip")
 
-        # unpacks the x64 archive
+        # unpacks the correct 64-bit archive
         for _ in os.listdir("./TEMP/wsa"):
-            if fnmatch.fnmatch(_, "*x64_Release*.msix"):
+            if cpu_arch.casefold() == "amd64" and fnmatch.fnmatch(_, "*x64_Release*.msix"):
+                shutil.unpack_archive(f"./TEMP/wsa/{_}", "./TEMP/wsa_main", "zip")
+                break
+            elif cpu_arch.casefold() == "arm64" and fnmatch.fnmatch(_, "*ARM64_Release*.msix"):
                 shutil.unpack_archive(f"./TEMP/wsa/{_}", "./TEMP/wsa_main", "zip")
                 break
         else:
-            _ = WindowError("Your selected archive does not have the 64-bit MSIX bundle.", no_text="Exit")
-            _.wait_window()
             cleanup()
+            WindowError("Your selected archive does not have the 64-bit MSIX bundle.").wait_window()
             exit()
 
         # removes signature from package
@@ -114,7 +125,10 @@ if __name__ == "__main__":
         os.makedirs(images_dir, exist_ok=True)
 
         # downloads GApps
-        speed_download(gapps_url, gapps_dir)
+        if cpu_arch.casefold() == "amd64":
+            speed_download(gapps_url_x64, gapps_dir)
+        else:
+            speed_download(gapps_url_arm64, gapps_dir)
 
         # moves files to working directory.
         for _ in os.listdir("./TEMP/wsa_main"):
@@ -140,7 +154,10 @@ if __name__ == "__main__":
                 shutil.move(f'./TEMP/WSAGAScript-main/#IMAGES/{_}', "./TEMP/wsa_main")
 
         # rooted kernel
-        shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel-x86_64', "./TEMP/wsa_main/Tools")
+        if cpu_arch.casefold() == "amd64":
+            shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel-x86_64', "./TEMP/wsa_main/Tools")
+        else:
+            shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel-arm64', "./TEMP/wsa_main/Tools")
 
         # bypasses Windows 11 requirement
         manifest_data = minidom.parse("./TEMP/wsa_main/AppxManifest.xml")
@@ -170,14 +187,16 @@ if __name__ == "__main__":
             if existing_install_version:
                 print(f"Deleting version {existing_install_version}.")
                 remove(os.path.join(install_loc, str(existing_install_version)))
-            input("WSA with GApps and root access installed. Press ENTER to exit.")
+            WindowError("WSA with GApps and root access installed. Press ENTER to exit.",
+                        color="green", tx_color="black").wait_window()
         else:
             remove(new_install_location)
-            input("Package install failure. Installation has been rolled back. Press ENTER to exit.")
+            WindowError("Package installation failed. Installation has been rolled back.").wait_window()
     except Exception as e:
         cleanup()
         print(traceback.format_exc())
-        input("Install failure. An exception occured. Installation has been rolled back. Press ENTER to exit.")
+        WindowError("Install failure. An exception occured. Installation has been rolled back.").wait_window()
         with open("error.log", "w") as file:
             print(e, file=file)
             print(traceback.format_exc(), file=file)
+        exit()

@@ -92,7 +92,7 @@ class WindowError(tkinter.Tk):
     A window displaying errors. May not be polished yet. Especially the quit() and destroy() not working properly.
     """
 
-    def __init__(self, *messages, color="red", tx_color="white", yes_command="", yes_text="OK", no_text="Dismiss"):
+    def __init__(self, *messages, color="red", tx_color="white", yes_command="", yes_text="OK", no_text="Exit"):
         """
         Creates the windows. Mainloop needed after initializing
         :param messages: All the messages. Separate the strings to make a line break
