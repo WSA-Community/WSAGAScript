@@ -23,7 +23,6 @@ def download_range(url, start, end, output):
 
 async def download(executor, url, output, chunk_size=1024768):
     loop = asyncio.get_event_loop()
-
     file_size = await get_size(url)
     chunks = range(0, file_size, chunk_size)
 
@@ -73,4 +72,3 @@ def speed_download(url, root, filename=None):
             continue
         else:
             break
-
