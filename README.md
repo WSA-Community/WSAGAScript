@@ -45,7 +45,7 @@ Delete the files appxblockmap, appxsignature and \[content_types\] along with th
 For Ubuntu
 
 ```bash
-git clone https://github.com/ADeltaX/WSAGAScript
+git clone https://github.com/WSA-Community/WSAGAScript
 cd WSAGAScript/\#IMAGES
 mv /mnt/path-to-extracted-msix/*.img .
 cd ../\#GAPPS
@@ -98,8 +98,6 @@ WSA will install with gapps, make sure to install android system webview from th
 
 You can get root access by replacing the kernel. (This step is no longer required to sign in gapps.)
 
-This kernel is only for `x64` architecture.
-
 ### (ADB SHELL ROOT WITH su)
 
 Copy the kernel file from this repo and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running)
@@ -114,6 +112,6 @@ su
 
 You are now root.
 
-# Kernel source
+### Kernel source
 
-The kernel is compiled from this repo, licensed under GPLv2: https://github.com/LSPosed/WSA-Kernel-SU/tree/kernel
+- [WSA-Community/WSA-Linux-Kernel](https://github.com/WSA-Community/WSA-Linux-Kernel)
