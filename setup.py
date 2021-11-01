@@ -155,10 +155,10 @@ if __name__ == "__main__":
 
         # rooted kernel
         if cpu_arch.casefold() == "amd64":
-            os.rename('./TEMP/WSAGAScript-main/misc/kernel-x86_64', "kernel")
+            os.rename('./TEMP/WSAGAScript-main/misc/kernel-x86_64', "./TEMP/kernel")
         else:
-            os.rename('./TEMP/WSAGAScript-main/misc/kernel-arm64', "kernel")
-        shutil.copy('./TEMP/WSAGAScript-main/misc/kernel', "./TEMP/wsa_main/Tools")
+            os.rename('./TEMP/WSAGAScript-main/misc/kernel-arm64', "./TEMP/kernel")
+        shutil.copy("./TEMP/kernel", "./TEMP/wsa_main/Tools")
 
         # bypasses Windows 11 requirement
         manifest_data = minidom.parse("./TEMP/wsa_main/AppxManifest.xml")
