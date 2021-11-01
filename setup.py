@@ -140,7 +140,7 @@ if __name__ == "__main__":
                 shutil.move(f'./TEMP/WSAGAScript-main/#IMAGES/{_}', "./TEMP/wsa_main")
 
         # rooted kernel
-        shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel', "./TEMP/wsa_main/Tools")
+        shutil.copy(f'./TEMP/WSAGAScript-main/misc/kernel-x86_64', "./TEMP/wsa_main/Tools")
 
         # bypasses Windows 11 requirement
         manifest_data = minidom.parse("./TEMP/wsa_main/AppxManifest.xml")
