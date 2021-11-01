@@ -35,6 +35,7 @@ def cleanup():
     remove("./TEMP/WSAGAScript-main")
     remove("./TEMP/wsa.zip")
     remove("./TEMP/WSAGAScript.zip")
+    remove("./TEMP/wsl_update_x64.msi")
     if os.path.exists("./TEMP"):
         for f in os.listdir("./TEMP"):
             if fnmatch.fnmatch(f, "*.part*"):
@@ -165,7 +166,7 @@ if __name__ == "__main__":
         # cleans up
         print("Cleaning up temporary files.")
         cleanup()
-        install_process = subprocess.run(f"powershell.exe Add-AppxPackage -Registe '{new_install_location}\\AppXManifest.xml'")
+        install_process = subprocess.run(f"powershell.exe Add-AppxPackage -Register '{new_install_location}\\AppXManifest.xml'")
 
         if not install_process.returncode:
             if existing_install_version:
