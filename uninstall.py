@@ -7,11 +7,11 @@ from sys import exit
 if __name__ == '__main__':
     try:
         get_admin_permission()
-        if not subprocess.run("powershell.exe Get-AppXPackage MicrosoftCorporationII.WindowsSubsystemForAndroid").stdout:
+        if not os.popen("powershell.exe Get-AppXPackage MicrosoftCorporationII.WindowsSubsystemForAndroid").read().strip():
             input("Windows Subsystem for Android is not installed. Press ENTER to exit.")
             exit()
         os.chdir(os.path.dirname(__file__))
-        choice = input("Uninstall Windows Subsystem for Android? [Y]es [N]o (default: no)")
+        choice = input("Uninstall Windows Subsystem for Android? [Y]es [N]o (default: no) > ")
         if choice.casefold() in ["y", "yes"]:
             a = subprocess.run("powershell.exe Get-AppXPackage MicrosoftCorporationII.WindowsSubsystemForAndroid |"
                                " Remove-AppXPackage -AllUsers")
