@@ -1,4 +1,4 @@
-name: WSA Google Apps
+name: WSAGA
 
 on:
   push:
@@ -12,6 +12,9 @@ jobs:
       matrix:
         arch: [x64, arm64]
     steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
