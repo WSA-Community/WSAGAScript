@@ -1,0 +1,55 @@
+name: WSA Google Apps
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        arch: [x64, arm64]
+    steps:
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Install unzip lzip
+        run: sudo apt install unzip lzip
+
+      - name: Download WSA MsixBundle
+        run: deno run --allow-net --allow-write --allow-read --allow-run ./ci/download_msix.ts ${{ matrix.arch }}
+
+      - name: Download OpenGApps
+        run: deno run --allow-net --allow-write --allow-read ./ci/download_opengapps.ts ${{ matrix.arch }} pico
+
+      - name: Setup Scripts
+        run: |
+          deno run --allow-read --allow-write ./ci/setup_variables.sh
+          chmod +x extract_gapps_pico.sh
+          chmod +x extend_and_mount_images.sh
+          chmod +x apply.sh
+          chmod +x unmount_images.sh
+
+      - name: Extract OpenGApps
+        run: ./extract_gapps_pico.sh
+
+      - name: Extend and mount images
+        run: sudo ./extend_and_mount_images.sh
+
+      - name: Apply
+        run: sudo ./apply.sh
+
+      - name: Unmount images
+        run: sudo ./unmount_images.sh
+
+      - name: Copy edited images
+        run: cp \#IMAGES/*.img ./wsa/wsapackage
+
+      - name: Upload WSA Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: WsaPackage
+          path: './wsa/wsapackage/*'
