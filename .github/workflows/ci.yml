@@ -51,8 +51,11 @@ jobs:
       - name: Copy edited images
         run: cp \#IMAGES/*.img ./wsa/wsapackage
 
+      - name: ZIP WSA Package
+        run: zip -r WsaPackage.zip ./wsa/wsapackage
+
       - name: Upload WSA Package
         uses: actions/upload-artifact@v2
         with:
           name: WsaPackage
-          path: './wsa/wsapackage/*'
+          path: './WsaPackage.zip
