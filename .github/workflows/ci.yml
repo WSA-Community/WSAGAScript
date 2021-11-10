@@ -57,5 +57,5 @@ jobs:
       - name: Upload WSA Package
         uses: actions/upload-artifact@v2
         with:
-          name: WsaPackage
+          name: WsaPackage_${{ matrix.arch }}.zip
           path: './WsaPackage.zip'
