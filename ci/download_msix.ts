@@ -17,6 +17,11 @@ async function fetchLink(productId: string) {
   return data.match(/\<a href="(https?:\/\/tlu.dl.delivery.mp.microsoft.com\/filestreamingservice\/files\/[a-z0-9\-]+\?[a-zA-Z0-9 _%&=]+)" rel="noreferrer"\>MicrosoftCorporationII\.WindowsSubsystemForAndroid_[a-zA-Z0-9\._~]+\.msixbundle\<\/a\>/)![1];
 }
 
+if (!["x64", "arm64"].includes(Deno.args[0])) {
+  console.error("Must specify x64 or arm64 arch in first argument");
+  Deno.exit(0);
+}
+
 const exists = await Deno.lstat("./WSA.msixbundle").then(() => true).catch(() => {});
 
 if (exists && !Deno.args.includes("-f")) {
@@ -30,19 +35,22 @@ if (exists && !Deno.args.includes("-f")) {
   console.log("Downloaded! Saved as WSA.msixbundle.");
 }
 
-await Deno.remove("./wsa", { recursive: true }).catch(() => {});
 console.log("Unzipping WSA (bundle)");
+// Remove if already exists
+await Deno.remove("./wsa", { recursive: true }).catch(() => {});
 await $("unzip", "./WSA.msixbundle", "-d", "./wsa");
 
 console.log("Unzipping WSA Package");
+// Look for msix file matching given arch
 const msix = [...Deno.readDirSync("./wsa")].find(({ name }) => name.endsWith(".msix") && name.toLowerCase().includes(Deno.args[0]))!.name;
+// Remove if already exists
 await Deno.remove("./wsa/wsapackage", { recursive: true }).catch(() => {});
 await $("unzip", `./wsa/${msix}`, "-d", "./wsa/wsapackage");
 
 console.log("Removing files from WSA Package");
-await Deno.remove("./wsa/wsapackage/[Content_Types].xml").catch(() => {});
-await Deno.remove("./wsa/wsapackage/AppxBlockMap.xml").catch(() => {});
-await Deno.remove("./wsa/wsapackage/AppxSignature.p7x").catch(() => {});
+await Deno.remove("./wsa/wsapackage/[Content_Types].xml");
+await Deno.remove("./wsa/wsapackage/AppxBlockMap.xml");
+await Deno.remove("./wsa/wsapackage/AppxSignature.p7x");
 
 console.log("Copying Images...");
 for await (const { name } of Deno.readDir("./wsa/wsapackage")) {

@@ -4,6 +4,16 @@ async function fetchLink(arch: string, variant: string) {
   return list.archs[arch].apis["11.0"].variants.find((e: { name: string }) => e.name === variant)!.zip;
 }
 
+if (!["x64", "arm64"].includes(Deno.args[0])) {
+  console.error("Must specify x64 or arm64 arch in first argument");
+  Deno.exit(0);
+}
+
+if (!Deno.args[1]) {
+  console.error("Must specify GApps variant, such as pico, etc.");
+  Deno.exit(0);
+}
+
 if (await Deno.lstat("./#GAPPS/OpenGApps.zip").then(() => true).catch(() => false) && !Deno.args.includes("-f")) {
   console.log("./#GAPPS/OpenGApps.zip already present, skipping download.");
 } else {
