@@ -17,7 +17,7 @@ async function fetchLink(productId: string) {
   return data.match(/\<a href="(https?:\/\/tlu.dl.delivery.mp.microsoft.com\/filestreamingservice\/files\/[a-z0-9\-]+\?[a-zA-Z0-9 _%&=]+)" rel="noreferrer"\>MicrosoftCorporationII\.WindowsSubsystemForAndroid_[a-zA-Z0-9\._~]+\.msixbundle\<\/a\>/)![1];
 }
 
-const exists = await Deno.lstat("./WSA.msixbundle").then(() => true).catch(console.error);
+const exists = await Deno.lstat("./WSA.msixbundle").then(() => true).catch(() => {});
 
 if (exists && !Deno.args.includes("-f")) {
   console.log("WSA.msixbundle already present, skipping download.");

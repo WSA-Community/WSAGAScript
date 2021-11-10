@@ -23,14 +23,14 @@ jobs:
         run: sudo apt install unzip lzip
 
       - name: Download WSA MsixBundle
-        run: deno run --allow-net --allow-write --allow-read --allow-run ./ci/download_msix.ts ${{ matrix.arch }}
+        run: deno run --no-check --allow-net --allow-write --allow-read --allow-run ./ci/download_msix.ts ${{ matrix.arch }}
 
       - name: Download OpenGApps
-        run: deno run --allow-net --allow-write --allow-read ./ci/download_opengapps.ts ${{ matrix.arch }} pico
+        run: deno run --no-check --allow-net --allow-write --allow-read ./ci/download_opengapps.ts ${{ matrix.arch }} pico
 
       - name: Setup Scripts
         run: |
-          deno run --allow-read --allow-write ./ci/setup_variables.sh
+          deno run --allow-read --allow-write ./ci/setup_variables.ts
           chmod +x extract_gapps_pico.sh
           chmod +x extend_and_mount_images.sh
           chmod +x apply.sh
