@@ -1,8 +1,19 @@
-# IT'S **WIP**
+# Required Warnings
+## This project is Work-In-Progress
 
-## This readme is being updated frequently. As I am aware that it might not be completely clear right now, I am going to resolve it ASAP
+This project is being updated without schedule (though frequently). This README might not be completely clear right now, it will be fixed ASAP.
 
-## As a temporary measure, I have also made a tutorial and hosted that video on YouTube
+## Legal Warnings
+
+By using the tools (scripts) provided by this project, you agree with the terms of [Unlicense License](https://github.com/WSA-Community/WSAGAScript/blob/main/LICENSE), which states that "THE SOFTWARE IS PROVIDED "AS IS"".
+
+To end user this serves as a warning, though we currently don't have any explicit confirmations - such way of install Google Services and Google Play Store may potentially be in a legal gray area.
+
+## Copyright notices
+
+Any product or trademark referenced in this document (or project as whole) belongs to their respective owners. No copyright infringement is intended.
+
+# As a temporary measure and additional infromation (especially if README remains unclear, [@ADeltaX](https://github.com/ADeltaX) provides a video-tutorial hosted on YouTube 
 
 <p align="center">
 
@@ -10,67 +21,129 @@
 
 </p>
 
-### THIS IS FOR TESTING
+*click on the image to see the video*
 
-### Download msixbundle (~1.2GB)
+# Installation procedure
 
-Use this [link](https://store.rg-adguard.net/) to download the msixbundle with the settings ProductId: 9P3395VX91NR, Ring: SLOW
+## Install Windows Subsystem for Linux (Version 2)
 
-### Install WSL2
+### Q & A for WSL Installation
+If you have never used WSL, please do check the following:
 
-Ubuntu is used in this guide, but any other distro will work for this just fine.
+- You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11
 
-(We are assuming that you are using the exact terminal, and you are also continuing this from where the last command has been left off)
+Fastest way to check your build version is to run ```winver``` command in Windows Search or via "Run..." (Right-click the Start button to access "Run...")
 
-### Install unzip lzip
+- Why do I need that "WSL"?
 
-For Ubuntu
+Because of the way Android as an operating system is built - specific tools to do the modifications that we are doing are only available on Linux-based OSes. The fastest way to get access to these tools is via WSL.
 
-```bash
+### How to install WSL
+
+- Open Windows Powershell as an Administrator
+- Run ```wsl --install```: this will install Ubuntu 20.04 LTS in WSL (Version 2) and all necessary components required to run as it is default (this is recommended)
+
+Your PC may restart several times when downloading and installing required components.
+After that - follow installation wizard instructions to proceed. If you have any questions, official documentation from Microsoft for WSL will help you.
+
+[Microsoft Docs: Installing WSL](https://docs.microsoft.com/en-us/windows/wsl/install) 
+
+[Microsoft Docs: Set up and best practices](https://docs.microsoft.com/en-us/windows/wsl/setup/environment)
+
+## Install unzip, lzip
+
+For now we are assuming that you have went with default installation (Ubuntu), terminal commands will be provided for Ubuntu. Commands provided for the most part will work for other Linux Distributions but there may be some that use other package managers. Check how to correctly install applications for your chosen distribution on the internet.
+
+Run following in the **WSL Terminal** (If you are unsure what is WSL Terminal, refer to the video, Microsoft Docs, or search Ubuntu in your start menu to be sure):
+
+**Attention!** For new users who have never used Linux Terminals - when you are being asked for your password (which you've set up when installed WSL) - it will **NOT** be displayed in the terminal as part of security measures. You should enter it blindly and then press enter. If password was entered incorrectly system will give you two more attempts, after which you will need to run the command again and try entering password again.
+
+```
 sudo apt update
 sudo apt install unzip lzip
 ```
+We have checked availability of updates and requested installation of two packacges which are required for execution of scripts provided by this project.
 
-### Download gapps
+## Prepare folder structure
 
-Select Platform: x86_64 if Windows architecture is x64, otherwise choose ARM64, Android: 11 and Variant: Pico on [OpenGApps](https://opengapps.org/)
+For the sake of simplicity, create a folder in the root of C Drive, so you will have ```C:\WSA\```. You may use other location if you would like, be sure to adjust commands below for new location.
 
-### Extract msixbundle
+**Attention!** At the time of last update for this README, attempt to run scripts if they are located in path that contains spaces (like "Zulu Storage" in ```D:\Zulu Storage\WSA```) will result in an error. Be sure to use paths with no spaces as long as fix have not been implemented.
 
-Download 7zip or a similar archival program and open the recently downloaded msixbundle. Find the msix file inside the msixbundle relating to your architecture and extract that to a folder.
-Delete the files appxblockmap, appxsignature and \[content_types\] along with the folder appxmetadata.
+## Download Windows Subsystem for Android™️ Installation Package
 
-### Clone this repo and populate the directories
+### Download
+As we need to modify installation files we cannot download WSA from the Microsoft Store. To download it directly we will use this [service](https://store.rg-adguard.net/)
 
-For Ubuntu
+Use settings:
+- ProductID: 9P3395VX91NR
+- Ring: SLOW
+
+Click the checkmark, and locate file which has size of approx. ~1.2GB (usually at the bottom of the page) and has ```.msixbundle``` extension.
+
+Click the filename to begin downloading. You may be warned by your web-browser that "The file cannot be downloaded securely". Disregard the warning and force the download (use buttons like "Keep anyway" or similar, depending on your web-browser)
+
+Save the file at our prepared directory ```C:\WSA\```
+
+### Extract
+- Download 7zip or a similar archival program and use it to extract downloaded file. Do not mind that this file does not bear any archival extensions (like .zip).
+- After extraction open ```C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_versionnumber_neutral___identifier\```. This folder will contain a lot of ```.msix``` files, use sort by size to locate two biggest files. 
+- Extract the one that is valid for your architecture, like this one ```WsaPackage_1.8.32822.0_x64_Release-Nightly.msix```
+- Open the extracted folder
+- Locate and delete files AppxBlockMap.xml, AppxSignature.p7x and \[Content_Types\].xml
+- Locate and delete AppxMetadata folder
+
+Do not close this folder - we will return here to collect \*.img files. 
+
+## Download "GApps" via OpenGApps Project
+
+To install Play Store we need to get it from somewhere. Use [OpenGApps](https://opengapps.org/).
+
+Use settings:
+- Platform: x86_64 if you are running Windows on a traditional laptop/PC, otherwise choose ARM64
+- Android: 11.0
+- Variant: Pico (at the time of writing this README, only minimal functionality with Pico variant have been confirmed working).
+
+For the time being save the .zip file at ```C:\WSA\gapps-zip-file-name.zip```. Do **not** extract it.
+
+## Clone this repository and populate the directories
+
+As we have used ```C:\WSA```, you will be able to use Windows Explorer to move files around.
+
+*Reminder: commands provided are for Ubuntu*
+
+**Attention!** To be sure that you can access your Windows filesystem from inside of WSL, you can run ```cd FolderName``` to change to another directory and ```ls``` to list what files and folders you have there. Typically, Windows Filesystem is available by /mnt/$DriveLetter/, so /mnt/c/Users will be your Windows "C:\Users"
 
 ```bash
+cd /mnt/c/WSA
 git clone https://github.com/WSA-Community/WSAGAScript
-cd WSAGAScript/\#IMAGES
-mv /mnt/path-to-extracted-msix/*.img .
-cd ../\#GAPPS
-cp /mnt/path-to-downloaded-gapps/gapps-zip-file-name.zip .
 ```
+Wait for the command to finish running.
 
-Paths in WSL follow the same as windows after /mnt/ its just the drive letter then folder structure as normal. For example /mnt/c/Users would be the C:\Users folder
+At the **Extract** step (in Download Windows Subsystem for Android™️ Installation Package) of this Guide we have got a folder that contains four \*.img files which are product, system, system_ext and vendor. Move those files into ```C:\WSA\WSAGAScript\#IMAGES```
 
-### Edit scripts
+We also have ```C:\WSA\gapps-zip-file-name.zip```. Copy this .zip file into ```C:\WSA\WSAGAScript\#GAPPS```. Do not **extract** it, just move the file.
 
-If you're using devices with ARM architecture (e.g., Qualcomm Snapdragon), please edit `VARIABLES.sh` and set the correct architecture.
+## Final preparations
 
-Set executable permission for the scripts:
+### Change architecture
+
+If you are using this project on a device with ARM architecture (e.g., Qualcomm Snapdragon), please edit `VARIABLES.sh` and set the correct architecture. Hint is in the file.
+
+### Set executable permissions for the scripts
+
+You should still be in the same directory within the WSL Terminal, if not use ```cd /mnt/c/WSA``` to get back.
+Set executable permissions for the scripts:
 
 ```bash
-cd ..
-chmod +x extract_gapps_pico.sh
-chmod +x extend_and_mount_images.sh
-chmod +x apply.sh
-chmod +x unmount_images.sh
+chmod +x *.sh
 ```
 
-### Run the scripts
+Verify that your scripts are executable by running ```ls -l``` and checking that you have ```-rwxrwxrwx``` at the start of lines that contain files: ```VARIABLES.sh, apply.sh, extend_and_mount_images.sh, extract_gapps_pico.sh, unmount_images.sh```.
 
-make sure you're in the same directory as the scripts before running, then run:
+## Running the scripts
+
+Make sure you're in the same directory as in the step before, the run:
 
 ```bash
 ./extract_gapps_pico.sh
@@ -79,26 +152,25 @@ sudo ./apply.sh
 sudo ./unmount_images.sh
 ```
 
-### Copy the edited images
+## Copy the edited images
 
-```bash
-cd \#IMAGES
-cp *.img /mnt/path-to-extracted-msix/
-```
+After succesful execution, you can now copy edited images from ```C:\WSA\WSAGAScript\#IMAGES``` back to ```C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_1.8.32822.0_neutral___8wekyb3d8bbwe\WsaPackage_1.8.32822.0_x64_Release-Nightly``` (example, the folder from where you have took the images).
 
-### Register the edited WSA
+# Registering the edited Windows Subsystem for Android™️ Installation Package
 
-- Enable developer mode in windows settings.
-- Uninstall any other installed versions of WSA
-- Open Windows PowerShell (not PowerShell) as admin and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
+- Use Windows Search to find "Developer Settings", when PC Settings app opens, enable "Developer Mode" on that page.
+- Uninstall any other installed versions of WSA (if you had any, uninstall exactly the main WSA app, all Android apps that have been added to Start Menu will be removed automatically)
+- Open Windows Powershell (not the cross-platform version) as Administrator and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
 
-WSA will install with gapps, make sure to install android system webview from the play store after signing in.
+Where `path-to-extracted-msix`, use path from "Copy the edited images" section (right above) as example.
 
-## Root access
+WSA will install with GApps, **make sure to sign in to Play Store and install "Android System WebView"** or most apps will crash without that component.
 
-You can get root access by replacing the kernel. (This step is no longer required to sign in gapps.)
+# Gaining Root Access
 
-### (ADB SHELL ROOT WITH su)
+You can get root access by replacing the kernel. (This step is no longer required to sign in GApps.)
+
+## (ADB SHELL ROOT WITH su)
 
 Copy the kernel file from this repo and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running)
 
@@ -112,6 +184,6 @@ su
 
 You are now root.
 
-### Kernel source
+## Kernel source
 
 - [WSA-Community/WSA-Linux-Kernel](https://github.com/WSA-Community/WSA-Linux-Kernel)
