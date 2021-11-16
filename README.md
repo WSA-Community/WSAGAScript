@@ -68,7 +68,10 @@ We have checked availability of updates and requested installation of two packac
 
 For the sake of simplicity, create a folder in the root of C Drive, so you will have ```C:\WSA\```. You may use other location if you would like, be sure to adjust commands below for new location.
 
+**Attention!** The folder where you will place the files which we will be downloading is going to become an installation folder. **DO NOT** delete that folder!
 **Attention!** At the time of last update for this README, attempt to run scripts if they are located in path that contains spaces (like "Zulu Storage" in ```D:\Zulu Storage\WSA```) will result in an error. Be sure to use paths with no spaces as long as fix have not been implemented.
+
+Hint: You can also open any folder (even those that are located within Linux WSL Filesystem, by typing `explorer.exe .` (Yes, with the dot) in the WSL Terminal, to move files around.
 
 ## Download Windows Subsystem for Android™️ Installation Package
 
@@ -156,7 +159,7 @@ sudo ./unmount_images.sh
 
 After succesful execution, you can now copy edited images from ```C:\WSA\WSAGAScript\#IMAGES``` back to ```C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_1.8.32822.0_neutral___8wekyb3d8bbwe\WsaPackage_1.8.32822.0_x64_Release-Nightly``` (example, the folder from where you have took the images).
 
-# Registering the edited Windows Subsystem for Android™️ Installation Package
+## Registering the edited Windows Subsystem for Android™️ Installation Package
 
 - Use Windows Search to find "Developer Settings", when PC Settings app opens, enable "Developer Mode" on that page.
 - Uninstall any other installed versions of WSA (if you had any, uninstall exactly the main WSA app, all Android apps that have been added to Start Menu will be removed automatically)
@@ -166,16 +169,24 @@ Where `path-to-extracted-msix`, use path from "Copy the edited images" section (
 
 WSA will install with GApps, **make sure to sign in to Play Store and install "Android System WebView"** or most apps will crash without that component.
 
+# Uninstallation procedure
+
+- Locate Windows Subsystem for Android™️ in your Start Menu, right-click, uninstall. This will uninstall Android and all Android Apps will vanish from Start as they are just shortcuts wired in from the WSA. You don't need to uninstall all Android Apps one-by-one beforehand.
+- Locate the directory where you have placed the files (in the example of this README it would be `C:\WSA`) - remove it.
+
+Done.
+
 # Gaining Root Access
 
 You can get root access by replacing the kernel. (This step is no longer required to sign in GApps.)
 
 ## (ADB SHELL ROOT WITH su)
 
-Copy the kernel file from this repo and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running)
+Copy the kernel file from this repo (in `misc` folder) and replace the kernel file inside the `Tools` folder of your extracted msix (make sure WSA is not running, use Stop button inside WSA Settings, and close settings).
+
+Kernel files inside `misc` are named for their respective architectures, do not forget to rename the file you took to `kernel` before placing it back into `Tools`.
 
 This will allow you to use `su` inside the `adb shell`.
-
 Enter into the `adb shell` and run the following commands:
 
 ```bash
