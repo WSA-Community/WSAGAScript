@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="required-warnings">Required Warnings</a> •
-  <a href="youtube-tutorial">YouTube Tutorial</a> •
-  <a href="installation-procedure">Installation procedure</a> •
-  <a href="uninstallation-procedure">Uninstallation procedure</a> •
-  <a href="gaining-root-access">Gaining Root Access</a> •
+  <a href="#required-warnings">Required Warnings</a> •
+  <a href="#youtube-tutorial">YouTube Tutorial</a> •
+  <a href="#installation-procedure">Installation procedure</a> •
+  <a href="#uninstallation-procedure">Uninstallation procedure</a> •
+  <a href="#gaining-root-access">Gaining Root Access</a> •
   <a href="https://t.me/WSA_Community">Telegram Group</a>
 </p>
 
