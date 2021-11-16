@@ -1,3 +1,12 @@
+<p align="center">
+  <a href="required-warnings">Required Warnings</a> •
+  <a href="youtube-tutorial">YouTube Tutorial</a> •
+  <a href="installation-procedure">Installation procedure</a> •
+  <a href="uninstallation-procedure">Uninstallation procedure</a> •
+  <a href="gaining-root-access">Gaining Root Access</a> •
+  <a href="https://t.me/WSA_Community">Telegram Group</a>
+</p>
+
 # Required Warnings
 ## This project is Work-In-Progress
 
@@ -13,7 +22,9 @@ To end user this serves as a warning, though we currently don't have any explici
 
 Any product or trademark referenced in this document (or project as whole) belongs to their respective owners. No copyright infringement is intended.
 
-# As a temporary measure and additional infromation (especially if README remains unclear, [@ADeltaX](https://github.com/ADeltaX) provides a video-tutorial hosted on YouTube 
+# YouTube Tutorial
+
+As a temporary measure and additional infromation (especially if README remains unclear, [@ADeltaX](https://github.com/ADeltaX) provides a video-tutorial hosted on YouTube 
 
 <p align="center">
 
