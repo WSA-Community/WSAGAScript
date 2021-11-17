@@ -1,3 +1,6 @@
+# [WSA GApps Script](https://github.com/WSA-Community/WSAGAScript)
+
+
 <p align="center">
   <a href="#required-warnings">Required Warnings</a> •
   <a href="#youtube-tutorial">YouTube Tutorial</a> •
@@ -12,11 +15,14 @@
 
 This project is being updated without schedule (though frequently). This README might not be completely clear right now, it will be fixed ASAP.
 
+As for potential questions - please open Discussions instead of Issues.  
+Issues are needed in cases if you have an **actual** issue that **prevents** you from **using** this project.
+
 ## Legal Warnings
 
-By using the tools (scripts) provided by this project, you agree with the terms of [Unlicense License](https://github.com/WSA-Community/WSAGAScript/blob/main/LICENSE), which states that "THE SOFTWARE IS PROVIDED "AS IS"".
+By using the tools (scripts, but not limited to) provided by this project, you agree with the terms of [Unlicense License](https://github.com/WSA-Community/WSAGAScript/blob/main/LICENSE), which states that "THE SOFTWARE IS PROVIDED "AS IS"".
 
-To end user this serves as a warning, though we currently don't have any explicit confirmations - such way of install Google Services and Google Play Store may potentially be in a legal gray area.
+To end user this serves as a warning, though we currently don't have any explicit confirmations - such way of installing Google Services and Google Play Store may potentially be in a legal gray area.
 
 ## Copyright notices
 
@@ -24,7 +30,7 @@ Any product or trademark referenced in this document (or project as whole) belon
 
 # YouTube Tutorial
 
-As a temporary measure and additional infromation (especially if README remains unclear, [@ADeltaX](https://github.com/ADeltaX) provides a video-tutorial hosted on YouTube 
+As a temporary measure and additional information (especially if README remains unclear, [@ADeltaX](https://github.com/ADeltaX) provides a video-tutorial hosted on YouTube 
 
 <p align="center">
 
@@ -32,7 +38,7 @@ As a temporary measure and additional infromation (especially if README remains 
 
 </p>
 
-*click on the image to see the video*
+*Click on the image to see the video*
 
 # Installation procedure
 
@@ -43,7 +49,7 @@ If you have never used WSL, please do check the following:
 
 - You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11
 
-Fastest way to check your build version is to run ```winver``` command in Windows Search or via "Run..." (Right-click the Start button to access "Run...")
+Fastest way to check your build version is to run `winver` command in Windows Search or via "Run..." (Right-click the Start button to access "Run...")
 
 - Why do I need that "WSL"?
 
@@ -51,19 +57,40 @@ Because of the way Android as an operating system is built - specific tools to d
 
 ### How to install WSL
 
-- Open Windows Powershell as an Administrator
-- Run ```wsl --install```: this will install Ubuntu 20.04 LTS in WSL (Version 2) and all necessary components required to run as it is default (this is recommended)
+- Open Windows PowerShell as an Administrator
+- Run `wsl --install`: this will install Ubuntu 20.04 LTS in WSL (Version 2) and all necessary components required to run as it is default (this is recommended)
 
 Your PC may restart several times when downloading and installing required components.
 After that - follow installation wizard instructions to proceed. If you have any questions, official documentation from Microsoft for WSL will help you.
+
+- Check with `wsl --list --verbose` to be sure that you have a Linux Distro installed with WSL2 version. If for some reason you have receieved WSL1 kernel (or you have trouble running this command in general) - follow instructions in the section below to perform conversion.
 
 [Microsoft Docs: Installing WSL](https://docs.microsoft.com/en-us/windows/wsl/install) 
 
 [Microsoft Docs: Set up and best practices](https://docs.microsoft.com/en-us/windows/wsl/setup/environment)
 
+### How to convert WSL1 to WSL2 (and manual installation)
+
+If you have trouble installing WSL2 with `wsl --install` in general - follow this instruction from Microsoft.
+
+[Microsoft Docs: Manual installation steps for older versions of WSL](https://docs.microsoft.com/en-us/windows/wsl/install-manual)
+
+If you have already used WSL, have trouble installing with `wsl --install` or for some reason have received a WSL1 version installation, this section is for you.
+
+Follow these steps:
+
+- Download WSL2 kernel for manual installation. Use the Microsoft Docs link above (Manual Installation) and check Step 4 to receive the kernel package.
+- Open Windows PowerShell as Administrator and run:
+  - `wsl --shutdown` to stop all WSL related processes (if any are running).
+- Install the kernel package from the step above.
+- Return to Windows PowerShell and run:
+  - `wsl --list --verbose` to get your installed distribution name. In case of Ubuntu, it most likely will look like `Ubuntu-20.04`.
+  - `wsl --set-version <distribution name> 2`, replace <distribution name> with the one that you have.
+  - Optional: if you would like to automatically install only WSL2 version builds in future. `wsl --set-default-version 2`. To be sure about the difference, check [Microsoft Docs: WSL - Compare versions](https://docs.microsoft.com/en-us/windows/wsl/compare-versions)
+
 ## Install unzip, lzip
 
-For now we are assuming that you have went with default installation (Ubuntu), terminal commands will be provided for Ubuntu. Commands provided for the most part will work for other Linux Distributions but there may be some that use other package managers. Check how to correctly install applications for your chosen distribution on the internet.
+For now, we are assuming that you have went with default installation (Ubuntu), terminal commands will be provided for Ubuntu. Commands provided for the most part will work for other Linux Distributions but there may be some that use other package managers. Check how to correctly install applications for your chosen distribution on the internet.
 
 Run following in the **WSL Terminal** (If you are unsure what is WSL Terminal, refer to the video, Microsoft Docs, or search Ubuntu in your start menu to be sure):
 
@@ -73,60 +100,60 @@ Run following in the **WSL Terminal** (If you are unsure what is WSL Terminal, r
 sudo apt update
 sudo apt install unzip lzip
 ```
-We have checked availability of updates and requested installation of two packacges which are required for execution of scripts provided by this project.
+We have checked availability of updates and requested installation of two packages which are required for execution of scripts provided by this project. They may be already present at your installation, but it is better to check anyway.
 
 ## Prepare folder structure
 
-For the sake of simplicity, create a folder in the root of C Drive, so you will have ```C:\WSA\```. You may use other location if you would like, be sure to adjust commands below for new location.
+For the sake of simplicity, create a folder in the root of C Drive, so you will have `C:\WSA\`. You may use other location if you would like, be sure to adjust commands below for new location.
 
-**Attention!** The folder where you will place the files which we will be downloading is going to become an installation folder. **DO NOT** delete that folder!
-**Attention!** At the time of last update for this README, attempt to run scripts if they are located in path that contains spaces (like "Zulu Storage" in ```D:\Zulu Storage\WSA```) will result in an error. Be sure to use paths with no spaces as long as fix have not been implemented.
+**Attention!** The folder where you will place the files which we will be downloading is going to become an installation folder. **DO NOT** delete that folder!  
+**Attention!** At the time of last update for this README, attempt to run scripts if they are located in path that contains spaces (like "Zulu Storage" in `D:\Zulu Storage\WSA`) will result in an error. Be sure to use paths with no spaces as long as fix have not been implemented.
 
 Hint: You can also open any folder (even those that are located within Linux WSL Filesystem, by typing `explorer.exe .` (Yes, with the dot) in the WSL Terminal, to move files around.
 
 ## Download Windows Subsystem for Android™️ Installation Package
 
 ### Download
-As we need to modify installation files we cannot download WSA from the Microsoft Store. To download it directly we will use this [service](https://store.rg-adguard.net/)
+As we need to modify installation files,  we cannot download WSA from the Microsoft Store. To download it directly we will use this [service](https://store.rg-adguard.net/)
 
 Use settings:
 - ProductID: 9P3395VX91NR
 - Ring: SLOW
 
-Click the checkmark, and locate file which has size of approx. ~1.2GB (usually at the bottom of the page) and has ```.msixbundle``` extension.
+Click the checkmark, and locate file which has size of approx. ~1.2GB (usually at the bottom of the page) and has `.msixbundle` extension.
 
 Click the filename to begin downloading. You may be warned by your web-browser that "The file cannot be downloaded securely". Disregard the warning and force the download (use buttons like "Keep anyway" or similar, depending on your web-browser)
 
-Save the file at our prepared directory ```C:\WSA\```
+Save the file at our prepared directory `C:\WSA\`
 
 ### Extract
 - Download 7zip or a similar archival program and use it to extract downloaded file. Do not mind that this file does not bear any archival extensions (like .zip).
-- After extraction open ```C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_versionnumber_neutral___identifier\```. This folder will contain a lot of ```.msix``` files, use sort by size to locate two biggest files. 
-- Extract the one that is valid for your architecture, like this one ```WsaPackage_1.8.32822.0_x64_Release-Nightly.msix```
+- After extraction open `C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_versionnumber_neutral___identifier\`. This folder will contain a lot of `.msix` files, use "Sort by size" to locate two biggest files. 
+- Extract the one that is valid for your architecture, like this one `WsaPackage_1.8.32822.0_x64_Release-Nightly.msix`
 - Open the extracted folder
-- Locate and delete files AppxBlockMap.xml, AppxSignature.p7x and \[Content_Types\].xml
-- Locate and delete AppxMetadata folder
+- Locate and delete files `AppxBlockMap.xml`, `AppxSignature.p7x` and `\[Content_Types\].xml`
+- Locate and delete `AppxMetadata` folder
 
 Do not close this folder - we will return here to collect \*.img files. 
 
 ## Download "GApps" via OpenGApps Project
 
-To install Play Store we need to get it from somewhere. Use [OpenGApps](https://opengapps.org/).
+To install Play Store, we need to get it from somewhere. Use [OpenGApps](https://opengapps.org/).
 
 Use settings:
 - Platform: x86_64 if you are running Windows on a traditional laptop/PC, otherwise choose ARM64
 - Android: 11.0
 - Variant: Pico (at the time of writing this README, only minimal functionality with Pico variant have been confirmed working).
 
-For the time being save the .zip file at ```C:\WSA\gapps-zip-file-name.zip```. Do **not** extract it.
+For the time being save the .zip file at `C:\WSA\gapps-zip-file-name.zip`. Do **not** extract it.
 
 ## Clone this repository and populate the directories
 
-As we have used ```C:\WSA```, you will be able to use Windows Explorer to move files around.
+As we have used `C:\WSA`, you will be able to use Windows Explorer to move files around.
 
 *Reminder: commands provided are for Ubuntu*
 
-**Attention!** To be sure that you can access your Windows filesystem from inside of WSL, you can run ```cd FolderName``` to change to another directory and ```ls``` to list what files and folders you have there. Typically, Windows Filesystem is available by /mnt/$DriveLetter/, so /mnt/c/Users will be your Windows "C:\Users"
+**Attention!** To be sure that you can access your Windows filesystem from inside of WSL, you can run `cd FolderName` to change to another directory and `ls` to list what files and folders you have there. Typically, Windows Filesystem is available by "/mnt/$DriveLetter/", so `/mnt/c/Users` will be your Windows `C:\Users`
 
 ```bash
 cd /mnt/c/WSA
@@ -134,9 +161,9 @@ git clone https://github.com/WSA-Community/WSAGAScript
 ```
 Wait for the command to finish running.
 
-At the **Extract** step (in Download Windows Subsystem for Android™️ Installation Package) of this Guide we have got a folder that contains four \*.img files which are product, system, system_ext and vendor. Move those files into ```C:\WSA\WSAGAScript\#IMAGES```
+At the **Extract** step (in Download Windows Subsystem for Android™️ Installation Package) of this Guide we have got a folder that contains four \*.img files which are product, system, system_ext and vendor. Move those files into `C:\WSA\WSAGAScript\#IMAGES`
 
-We also have ```C:\WSA\gapps-zip-file-name.zip```. Copy this .zip file into ```C:\WSA\WSAGAScript\#GAPPS```. Do not **extract** it, just move the file.
+We also have `C:\WSA\gapps-zip-file-name.zip`. Copy this .zip file into `C:\WSA\WSAGAScript\#GAPPS`. Do not **extract** it, just move the file.
 
 ## Final preparations
 
@@ -146,14 +173,14 @@ If you are using this project on a device with ARM architecture (e.g., Qualcomm 
 
 ### Set executable permissions for the scripts
 
-You should still be in the same directory within the WSL Terminal, if not use ```cd /mnt/c/WSA``` to get back.
+You should still be in the same directory within the WSL Terminal, if not use `cd /mnt/c/WSA` to get back.
 Set executable permissions for the scripts:
 
 ```bash
 chmod +x *.sh
 ```
 
-Verify that your scripts are executable by running ```ls -l``` and checking that you have ```-rwxrwxrwx``` at the start of lines that contain files: ```VARIABLES.sh, apply.sh, extend_and_mount_images.sh, extract_gapps_pico.sh, unmount_images.sh```.
+Verify that your scripts are executable by running `ls -l` and checking that you have `-rwxrwxrwx` at the start of lines that contain files: `VARIABLES.sh`, `apply.sh`, `extend_and_mount_images.sh`, `extract_gapps_pico.sh`, `unmount_images.sh`.
 
 ## Running the scripts
 
@@ -168,13 +195,13 @@ sudo ./unmount_images.sh
 
 ## Copy the edited images
 
-After succesful execution, you can now copy edited images from ```C:\WSA\WSAGAScript\#IMAGES``` back to ```C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_1.8.32822.0_neutral___8wekyb3d8bbwe\WsaPackage_1.8.32822.0_x64_Release-Nightly``` (example, the folder from where you have took the images).
+After successful execution, you can now copy edited images from `C:\WSA\WSAGAScript\#IMAGES` back to `C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_1.8.32822.0_neutral___8wekyb3d8bbwe\WsaPackage_1.8.32822.0_x64_Release-Nightly` (example, the folder from where you have taken the images).
 
 ## Registering the edited Windows Subsystem for Android™️ Installation Package
 
 - Use Windows Search to find "Developer Settings", when PC Settings app opens, enable "Developer Mode" on that page.
 - Uninstall any other installed versions of WSA (if you had any, uninstall exactly the main WSA app, all Android apps that have been added to Start Menu will be removed automatically)
-- Open Windows Powershell (not the cross-platform version) as Administrator and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
+- Open Windows PowerShell as Administrator and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
 
 Where `path-to-extracted-msix`, use path from "Copy the edited images" section (right above) as example.
 
@@ -209,3 +236,7 @@ You are now root.
 ## Kernel source
 
 - [WSA-Community/WSA-Linux-Kernel](https://github.com/WSA-Community/WSA-Linux-Kernel)
+
+# Currently known issues
+
+WSA 1.8.32822.0 may potentially prevent users from signing in to the Google Play Store, reasons are under investigation. See details and [#128](https://github.com/WSA-Community/WSAGAScript/issues/128) for previous version.
