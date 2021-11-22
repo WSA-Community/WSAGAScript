@@ -239,4 +239,4 @@ You are now root.
 
 # Currently known issues
 
-WSA 1.8.32822.0 may potentially prevent users from signing in to the Google Play Store, reasons are under investigation. See details and [#128](https://github.com/WSA-Community/WSAGAScript/issues/128) for previous version.
+- [Issues](https://github.com/WSA-Community/WSAGAScript/issues)
