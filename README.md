@@ -173,7 +173,7 @@ If you are using this project on a device with ARM architecture (e.g., Qualcomm 
 
 ### Set executable permissions for the scripts
 
-You should still be in the same directory within the WSL Terminal, if not use `cd /mnt/c/WSA` to get back.
+You should still be in the same directory within the WSL Terminal, if not use `cd /mnt/c/WSA/WSAGAScript` to get back.
 Set executable permissions for the scripts:
 
 ```bash
