@@ -5,7 +5,7 @@ echo "updating..."
 sudo apt update
 sudo apt install unzip lzip git
 
-while ! find MicrosoftCorporationII.WindowsSubsystemForAndroid*.7z 1> /dev/null 2>&1
+while ! find MicrosoftCorporationII.WindowsSubsystemForAndroid*.msixbundle 1> /dev/null 2>&1
 do
   echo -e "\n\msixbundle not found - download from: ${LINK}https://store.rg-adguard.net/${NC} (Ctrl+Click)\nProductId: 9P3395VX91NR, Ring: SLOW\n\nPress enter once downloaded to current folder" ; read -p "($PWD)"
 done
@@ -82,5 +82,5 @@ echo
 echo
 
 echo "Everyting should be installed now"
-echo "Remaining Folder/Files: WSAGAScript, MicrosoftCorporation...7z, open_gapps...zip, intallWSAGA,sh"
+echo "Remaining Folder/Files: WSAGAScript, MicrosoftCorporation...msixbundle, open_gapps...zip, intallWSAGA,sh"
 echo "delete them manually or keep if something breaks"
