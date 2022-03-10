@@ -24,7 +24,6 @@ MountPointVendor="/mnt/vendor"
 SystemImageSize=$(du "$ImagesRoot"/system.img | tr "  " "*" | tr "\t" " " | cut -d " " -f 1)
 OpenGappszipSize=$(du "$GAppsRoot"/*.zip | tr "  " "*" | tr "\t" " " | cut -d " " -f 1)
 FinalSize=$(((SystemImageSize+OpenGappszipSize+1000000000)/1024))
-echo "system.img $SystemImageSize -> ${FinalSize}M"
 
 InstallPartition="/mnt/system"
 InstallDir="$InstallPartition/system"
