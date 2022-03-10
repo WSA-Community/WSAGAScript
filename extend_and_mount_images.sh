@@ -12,7 +12,7 @@ echo "chk product.img"
 e2fsck -f $ImagesRoot/product.img
 
 echo "Resizing product.img"
-resize2fs $ImagesRoot/product.img 2048M
+resize2fs $ImagesRoot/product.img 1024M
 
 echo "chk system.img"
 e2fsck -f $ImagesRoot/system.img
@@ -24,13 +24,13 @@ echo "chk system_ext.img"
 e2fsck -f $ImagesRoot/system_ext.img
 
 echo "Resizing system_ext.img"
-resize2fs $ImagesRoot/system_ext.img 800M
+resize2fs $ImagesRoot/system_ext.img 108M
 
 echo "chk vendor.img"
 e2fsck -f $ImagesRoot/vendor.img
 
 echo "Resizing vendor.img"
-resize2fs $ImagesRoot/vendor.img 800M
+resize2fs $ImagesRoot/vendor.img 300M
 
 echo "Creating mount point for product"
 mkdir -p $MountPointProduct
