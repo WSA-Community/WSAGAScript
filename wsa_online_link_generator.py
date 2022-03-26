@@ -16,8 +16,10 @@ def get_wsa_entry():
     }
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B179 Safari/7534.48.3",
     }
     r = requests.post(url=api_url, data=data, headers=headers)
+    print(r.text)
     soup = BeautifulSoup(r.text, "html.parser")
     for link in soup.select("tr a"):
         if fnmatch.fnmatch(link.string.casefold(), "*windowssubsystemforandroid*.msixbundle"):
