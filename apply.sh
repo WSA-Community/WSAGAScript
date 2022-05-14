@@ -154,9 +154,13 @@ chcon --reference=$MountPointProduct/etc $MountPointProduct/build.prop
 chcon --reference=$MountPointVendor/etc $MountPointVendor/build.prop
 
 echo "Applying SELinux policy"
+SELinuxPolicy="(allow gmscore_app self (vsock_socket (read write create connect)))"
+SELinuxPolicy="${SELinuxPolicy}\n(allow gmscore_app device_config_runtime_native_boot_prop (file (read)))"
+SELinuxPolicy="${SELinuxPolicy}\n(allow gmscore_app system_server_tmpfs (dir (search)))"
+SELinuxPolicy="${SELinuxPolicy}\n(allow gmscore_app system_server_tmpfs (file (open)))"
 # Sed will remove the SELinux policy for plat_sepolicy.cil, preserve policy using cp
 cp $InstallDir/etc/selinux/plat_sepolicy.cil $InstallDir/etc/selinux/plat_sepolicy_new.cil
-sed -i 's/(allow gmscore_app self (process (ptrace)))/(allow gmscore_app self (process (ptrace)))\n(allow gmscore_app self (vsock_socket (read write create connect)))\n(allow gmscore_app device_config_runtime_native_boot_prop (file (read)))/g' $InstallDir/etc/selinux/plat_sepolicy_new.cil
+sed -i "s/(allow gmscore_app self (process (ptrace)))/(allow gmscore_app self (process (ptrace)))\n${SELinuxPolicy}/g" $InstallDir/etc/selinux/plat_sepolicy_new.cil
 cp $InstallDir/etc/selinux/plat_sepolicy_new.cil $InstallDir/etc/selinux/plat_sepolicy.cil
 rm $InstallDir/etc/selinux/plat_sepolicy_new.cil
 

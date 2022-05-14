@@ -173,7 +173,7 @@ If you are using this project on a device with ARM architecture (e.g., Qualcomm 
 
 ### Set executable permissions for the scripts
 
-You should still be in the same directory within the WSL Terminal, if not use `cd /mnt/c/WSA` to get back.
+You should still be in the same directory within the WSL Terminal, if not use `cd /mnt/c/WSA/WSAGAScript` to get back.
 Set executable permissions for the scripts:
 
 ```bash
@@ -239,4 +239,4 @@ You are now root.
 
 # Currently known issues
 
-WSA 1.8.32822.0 may potentially prevent users from signing in to the Google Play Store, reasons are under investigation. See details and [#128](https://github.com/WSA-Community/WSAGAScript/issues/128) for previous version.
+- [Issues](https://github.com/WSA-Community/WSAGAScript/issues)
