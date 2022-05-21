@@ -24,13 +24,13 @@ echo "chk system_ext.img"
 e2fsck -f $ImagesRoot/system_ext.img
 
 echo "Resizing system_ext.img"
-resize2fs $ImagesRoot/system_ext.img 108M
+resize2fs $ImagesRoot/system_ext.img 150M
 
 echo "chk vendor.img"
 e2fsck -f $ImagesRoot/vendor.img
 
 echo "Resizing vendor.img"
-resize2fs $ImagesRoot/vendor.img 300M
+resize2fs $ImagesRoot/vendor.img 400M
 
 echo "Creating mount point for product"
 mkdir -p $MountPointProduct
