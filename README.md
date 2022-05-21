@@ -131,7 +131,7 @@ Save the file at our prepared directory `C:\WSA\`
 - After extraction open `C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_versionnumber_neutral___identifier\`. This folder will contain a lot of `.msix` files, use "Sort by size" to locate two biggest files. 
 - Extract the one that is valid for your architecture, like this one `WsaPackage_1.8.32822.0_x64_Release-Nightly.msix`
 - Open the extracted folder
-- Locate and delete files `AppxBlockMap.xml`, `AppxSignature.p7x` and `\[Content_Types\].xml`
+- Locate and delete files `AppxBlockMap.xml`, `AppxSignature.p7x` and `[Content_Types].xml`
 - Locate and delete `AppxMetadata` folder
 
 Do not close this folder - we will return here to collect \*.img files. 
@@ -161,9 +161,21 @@ git clone https://github.com/WSA-Community/WSAGAScript
 ```
 Wait for the command to finish running.
 
-At the **Extract** step (in Download Windows Subsystem for Android™️ Installation Package) of this Guide we have got a folder that contains four \*.img files which are product, system, system_ext and vendor. Move those files into `C:\WSA\WSAGAScript\#IMAGES`
+At the **Extract** step (in Download Windows Subsystem for Android™️ Installation Package) of this Guide we have got a folder that contains four \*.img files which are *product*, *system*, *system_ext* and *vendor*. Move those files into `C:\WSA\WSAGAScript\#IMAGES`
+
+Then issuing `ls /mnt/c/WSA/WSAGAScript/\#IMAGES` via WSL terminal should give the list of the following files:
+
+```
+product.img  system_ext.img  system.img  vendor.img
+```
 
 We also have `C:\WSA\gapps-zip-file-name.zip`. Copy this .zip file into `C:\WSA\WSAGAScript\#GAPPS`. Do not **extract** it, just move the file.
+
+Issuing `ls /mnt/c/WSA/WSAGAScript/\#GAPPS` via WSL terminal, you should get something similar to the following:
+
+```
+open_gapps-x86_64-11.0-pico-20220503.zip  output  product_output
+```
 
 ## Final preparations
 
