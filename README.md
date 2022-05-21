@@ -118,11 +118,11 @@ As we need to modify installation files,  we cannot download WSA from the Micros
 
 Use settings:
 - ProductID: 9P3395VX91NR
-- Ring: SLOW
+- Ring: Fast
 
-Click the checkmark, and locate file which has size of approx. ~1.2GB (usually at the bottom of the page) and has `.msixbundle` extension.
+Click the checkmark, and locate file which has size of approx. ~1.3GB (usually at the bottom of the page) and has `.msixbundle` extension.
 
-Click the filename to begin downloading. You may be warned by your web-browser that "The file cannot be downloaded securely". Disregard the warning and force the download (use buttons like "Keep anyway" or similar, depending on your web-browser)
+Click the filename to begin downloading (or copy the download link). You may be warned by your web-browser that "The file cannot be downloaded securely". Disregard the warning and force the download (use buttons like "Keep anyway" or similar, depending on your web-browser)
 
 Save the file at our prepared directory `C:\WSA\`
 
