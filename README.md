@@ -245,7 +245,77 @@ su
 
 You are now root.
 
-## Kernel source
+# Procedure to add files to WSA
+
+It is possible to add files to WSA (Windows Sybsystem for Android) through WSL. As an example, we will install [busybox](https://busybox.net/) and *bash*.
+
+First, turn off WSA:
+- Open *Windows Sybsystem for Android Settings*
+- Turn off Windows Sybsystem for Android (press *Turn off*)
+
+Then open a WSL terminal:
+
+```bash
+cd /mnt/d/WSA/...MicrosoftCorporationII.WindowsSubsystemForAndroid_versionnumber_neutral___identifier...
+
+# Temporarily extend the "system" filesystem to allow adding things
+e2fsck -f system.img
+sudo resize2fs system.img 1280M
+
+# Mount "system" in read-write
+sudo mount system.img /mnt/system
+```
+
+## Example to add busybox and bash
+
+Check the most recent [binaries for x86_64-linux](https://busybox.net/downloads/binaries/); at the time of writing: https://busybox.net/downloads/binaries/1.35.0-x86_64-linux-musl/
+
+```bash
+cd /mnt/system/system
+sudo mkdir xbin
+cd xbin
+sudo wget https://busybox.net/downloads/binaries/1.35.0-x86_64-linux-musl/busybox
+sudo chmod 755 busybox
+for i in `./busybox --list`; do sudo ln busybox "$i"; done
+
+# We will use the debian bash executable
+sudo mkdir temp
+cd temp
+sudo wget http://http.us.debian.org/debian/pool/main/b/bash/bash-static_5.1-2+b3_i386.deb
+sudo dpkg-deb -R bash-static_5.1-2+b3_i386.deb tmp
+sudo chmod 755 tmp/bin/bash-static
+sudo cp tmp/bin/bash-static ..
+cd ..
+sudo rm -r temp
+
+# Yet another bash executable...
+sudo wget https://github.com/robxu9/bash-static/releases/download/5.1.016-1.2.3/bash-linux-x86_64
+sudo chmod 755 bash-linux-x86_64
+
+# Unmount system filesystem
+cd
+sudo umount /mnt/system
+
+# Shrink the system filesystem to minimize its size as much as possible
+e2fsck -f system.img
+sudo resize2fs -M system.img
+```
+
+## Testing the installation
+
+Start *Windows Sybsystem for Android* (e.g., open *Windows Sybsystem for Android Settings* and press the button close to *Files*).
+
+Open a *CMD* with path to *adb*.
+
+```cmd
+adb connect 127.0.0.1:58526
+adb shell
+su
+export PATH=$PATH:/system/xbin
+type vi
+```
+
+# Kernel source
 
 - [WSA-Community/WSA-Linux-Kernel](https://github.com/WSA-Community/WSA-Linux-Kernel)
 
