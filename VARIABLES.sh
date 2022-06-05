@@ -23,7 +23,7 @@ MountPointVendor="/mnt/vendor"
 # Conditional System.img size
 SystemImageSize=$(du "$ImagesRoot"/system.img | tr "  " "*" | tr "\t" " " | cut -d " " -f 1)
 OpenGappszipSize=$(du "$GAppsRoot"/*.zip | tr "  " "*" | tr "\t" " " | cut -d " " -f 1)
-FinalSize=$(((SystemImageSize+OpenGappszipSize+1000000000)/1024))
+FinalSize=$(((SystemImageSize+(OpenGappszipSize*3))/1024))
 
 InstallPartition="/mnt/system"
 InstallDir="$InstallPartition/system"
