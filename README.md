@@ -199,12 +199,18 @@ Verify that your scripts are executable by running `ls -l` and checking that you
 Make sure you're in the same directory as in the step before, the run:
 
 ```bash
-./extract_gapps_pico.sh
+sudo ./extract_gapps_pico.sh
 sudo ./extend_and_mount_images.sh
 sudo ./apply.sh
 sudo ./unmount_images.sh
 ```
 
+Note :  If you get these errors sudo: unable to execute ./extract_gapps_pico.sh: No such file or directory OR "-bash: ./extract_gapps_pico.sh: /bin/bash^M: bad interpreter: No such file or directory" on execution then do this before and run again.
+  
+```bash
+sed -i -e 's/\r$//' ./*.sh
+``` 
+  
 ## Copy the edited images
 
 After successful execution, you can now copy edited images from `C:\WSA\WSAGAScript\#IMAGES` back to `C:\WSA\MicrosoftCorporationII.WindowsSubsystemForAndroid_1.8.32822.0_neutral___8wekyb3d8bbwe\WsaPackage_1.8.32822.0_x64_Release-Nightly` (example, the folder from where you have taken the images).
