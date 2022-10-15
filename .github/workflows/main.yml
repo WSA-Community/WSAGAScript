@@ -1,0 +1,15 @@
+fthtgr
+d6t8t
+d
+y89y9y8
+u890- name: Cache
+  uses: actions/cache@v3.0.11
+  with:
+    # A list of files, directories, and wildcard patterns to cache and restore
+    path: 
+    # An explicit key for restoring and saving the cache
+    key: 
+    # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
+    restore-keys: # optional
+    # The chunk size used to split up large files during upload, in bytes
+    upload-chunk-size: # optional
