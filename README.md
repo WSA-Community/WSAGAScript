@@ -94,20 +94,20 @@ For now, we are assuming that you have went with default installation (Ubuntu), 
 
 Run following in the **WSL Terminal** (If you are unsure what is WSL Terminal, refer to the video, Microsoft Docs, or search Ubuntu in your start menu to be sure):
 
-**Attention!** For new users who have never used Linux Terminals - when you are being asked for your password (which you've set up when installed WSL) - it will **NOT** be displayed in the terminal as part of security measures. You should enter it blindly and then press enter. If password was entered incorrectly system will give you two more attempts, after which you will need to run the command again and try entering password again.
+**Attention!** For new users who have never used Linux Terminals - when you are being asked for your password (which you've set up when installed WSL) - it will **NOT** be displayed in the terminal as part of security measures. You should enter it blindly and then press enter. If the password was entered incorrectly system will give you two more attempts, after which you will need to run the command again and try entering the password again.
 
 ```
 sudo apt update
 sudo apt install unzip lzip
 ```
-We have checked availability of updates and requested installation of two packages which are required for execution of scripts provided by this project. They may be already present at your installation, but it is better to check anyway.
+We have checked the availability of updates and requested installation of two packages which are required for execution of scripts provided by this project. They may be already present at your installation, but it is better to check anyway.
 
 ## Prepare folder structure
 
-For the sake of simplicity, create a folder in the root of C Drive, so you will have `C:\WSA\`. You may use other location if you would like, be sure to adjust commands below for new location.
+For the sake of simplicity, create a folder in the root of C Drive, so you will have `C:\WSA\`. You may use another location if you would like, be sure to adjust commands below for new location.
 
 **Attention!** The folder where you will place the files which we will be downloading is going to become an installation folder. **DO NOT** delete that folder!  
-**Attention!** At the time of last update for this README, attempt to run scripts if they are located in path that contains spaces (like "Zulu Storage" in `D:\Zulu Storage\WSA`) will result in an error. Be sure to use paths with no spaces as long as fix have not been implemented.
+**Attention!** At the time of last update for this README, any attempt to run scripts if they are located in path that contains spaces (like "Zulu Storage" in `D:\Zulu Storage\WSA`) will result in an error. Be sure to use paths with no spaces as long as fix have not been implemented.
 
 Hint: You can also open any folder (even those that are located within Linux WSL Filesystem, by typing `explorer.exe .` (Yes, with the dot) in the WSL Terminal, to move files around.
 
@@ -120,7 +120,7 @@ Use settings:
 - ProductID: 9P3395VX91NR
 - Ring: Fast
 
-Click the checkmark, and locate file which has size of approx. ~1.3GB (usually at the bottom of the page) and has `.msixbundle` extension.
+Click the checkmark, and locate the file which has a size of approx. ~1.3GB (usually at the bottom of the page) and has `.msixbundle` extension.
 
 Click the filename to begin downloading (or copy the download link). You may be warned by your web-browser that "The file cannot be downloaded securely". Disregard the warning and force the download (use buttons like "Keep anyway" or similar, depending on your web-browser)
 
@@ -212,7 +212,7 @@ After successful execution, you can now copy edited images from `C:\WSA\WSAGAScr
 ## Registering the edited Windows Subsystem for Android™️ Installation Package
 
 - Use Windows Search to find "Developer Settings", when PC Settings app opens, enable "Developer Mode" on that page.
-- Uninstall any other installed versions of WSA (if you had any, uninstall exactly the main WSA app, all Android apps that have been added to Start Menu will be removed automatically)
+- Uninstall any other installed versions of WSA (if you had any, uninstall exactly the main WSA app, all Android apps that have been added to the Start Menu will be removed automatically)
 - Open Windows PowerShell as Administrator and run `Add-AppxPackage -Register path-to-extracted-msix\AppxManifest.xml`
 
 Where `path-to-extracted-msix`, use path from "Copy the edited images" section (right above) as example.
@@ -247,11 +247,11 @@ You are now root.
 
 # Procedure to add files to WSA
 
-It is possible to add files to WSA (Windows Sybsystem for Android) through WSL. As an example, we will install [busybox](https://busybox.net/) and *bash*.
+It is possible to add files to WSA (Windows Subsystem for Android) through WSL. As an example, we will install [busybox](https://busybox.net/) and *bash*.
 
 First, turn off WSA:
-- Open *Windows Sybsystem for Android Settings*
-- Turn off Windows Sybsystem for Android (press *Turn off*)
+- Open *Windows Subsystem for Android Settings*
+- Turn off Windows Subsystem for Android (press *Turn off*)
 
 Then open a WSL terminal:
 
@@ -303,7 +303,7 @@ sudo resize2fs -M system.img
 
 ## Testing the installation
 
-Start *Windows Sybsystem for Android* (e.g., open *Windows Sybsystem for Android Settings* and press the button close to *Files*).
+Start *Windows Subsystem for Android* (e.g., open *Windows Subsystem for Android Settings* and press the button close to *Files*).
 
 Open a *CMD* with path to *adb*.
 
