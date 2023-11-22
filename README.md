@@ -196,7 +196,7 @@ Verify that your scripts are executable by running `ls -l` and checking that you
 
 ## Running the scripts
 
-Make sure you're in the same directory as in the step before, the run:
+Make sure you're in the same directory as in the step before, then run:
 
 ```bash
 ./extract_gapps_pico.sh
